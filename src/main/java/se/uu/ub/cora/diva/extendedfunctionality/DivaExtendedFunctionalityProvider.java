@@ -1,5 +1,6 @@
 package se.uu.ub.cora.diva.extendedfunctionality;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.uu.ub.cora.metacreator.extended.MetacreatorExtendedFunctionalityProvider;
@@ -42,8 +43,11 @@ public class DivaExtendedFunctionalityProvider extends MetacreatorExtendedFuncti
 	@Override
 	public List<ExtendedFunctionality> getFunctionalityForUpdateAfterMetadataValidation(
 			String recordType) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ExtendedFunctionality> extendedFunctionalities = new ArrayList<>();
+		if ("divaOrganisation".equals(recordType)) {
+			extendedFunctionalities.add(null);
+		}
+		return extendedFunctionalities;
 	}
 
 	@Override
