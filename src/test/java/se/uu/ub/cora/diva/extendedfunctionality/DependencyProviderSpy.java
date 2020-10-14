@@ -16,37 +16,31 @@ public class DependencyProviderSpy extends SpiderDependencyProvider {
 
 	@Override
 	protected void tryToInitialize() throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void readInitInfo() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public ExtendedFunctionalityProvider getExtendedFunctionalityProvider() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Authenticator getAuthenticator() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public RecordSearch getRecordSearch() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public RecordIndexer getRecordIndexer() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

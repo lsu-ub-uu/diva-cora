@@ -9,20 +9,16 @@ public class RecordStorageProviderSpy implements RecordStorageProvider {
 
 	@Override
 	public int getOrderToSelectImplementionsBy() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public RecordStorage getRecordStorage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void startUsingInitInfo(Map<String, String> arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

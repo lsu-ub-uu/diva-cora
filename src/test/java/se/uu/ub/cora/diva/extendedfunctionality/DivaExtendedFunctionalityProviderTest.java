@@ -46,8 +46,9 @@ public class DivaExtendedFunctionalityProviderTest {
 		boolean foundOrganisationTypeRemover = false;
 
 		for (ExtendedFunctionality extendedFunctionality : extendedFunctionalitiesForUpdateAfterValidation) {
-			if (extendedFunctionality instanceof OrganisationTypeRemover)
+			if (extendedFunctionality instanceof OrganisationTypeRemover) {
 				foundOrganisationTypeRemover = true;
+			}
 		}
 
 		assertTrue(foundOrganisationTypeRemover);
@@ -59,8 +60,9 @@ public class DivaExtendedFunctionalityProviderTest {
 		RecordStorageProviderSpy recordStorageProviderSpy = new RecordStorageProviderSpy();
 		dependencyProvider.setRecordStorageProvider(recordStorageProviderSpy);
 
+		String recordTypeThatExistsOnlyInParentNotInDivaExtendedFunctionalityProvider = "metadataGroup";
 		List<ExtendedFunctionality> extendedFunctionalitiesForUpdateAfterValidation = divaExtendedFunctionalityProvider
-				.getFunctionalityForUpdateAfterMetadataValidation("metadataGroup");
+				.getFunctionalityForUpdateAfterMetadataValidation(recordTypeThatExistsOnlyInParentNotInDivaExtendedFunctionalityProvider);
 
 		assertTrue(extendedFunctionalitiesForUpdateAfterValidation.size() > 0);
 	}
