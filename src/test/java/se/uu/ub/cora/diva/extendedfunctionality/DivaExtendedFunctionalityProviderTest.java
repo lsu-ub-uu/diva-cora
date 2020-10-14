@@ -42,10 +42,26 @@ public class DivaExtendedFunctionalityProviderTest {
 				.getFunctionalityForUpdateAfterMetadataValidation("divaOrganisation");
 
 		assertTrue(extendedFunctionalitiesForUpdateAfterValidation.size() > 0);
-		// assertEquals(extendedFunctionalitiesForUpdateAfterValidation, Collections.emptyList());
 
-		// TODO:
-		// Loop through list and asser that at least one is the new ExtendedFunctionality
-		// Write test to make sure that the parents method is called as well
+		boolean foundOrganisationTypeRemover = false;
+
+		for (ExtendedFunctionality extendedFunctionality : extendedFunctionalitiesForUpdateAfterValidation) {
+			if (extendedFunctionality instanceof OrganisationTypeRemover)
+				foundOrganisationTypeRemover = true;
+		}
+
+		assertTrue(foundOrganisationTypeRemover);
+
+	}
+
+	@Test
+	public void testFunctionalityForUpdateAfterMetadataValidationCallsSuperMethod() {
+		RecordStorageProviderSpy recordStorageProviderSpy = new RecordStorageProviderSpy();
+		dependencyProvider.setRecordStorageProvider(recordStorageProviderSpy);
+
+		List<ExtendedFunctionality> extendedFunctionalitiesForUpdateAfterValidation = divaExtendedFunctionalityProvider
+				.getFunctionalityForUpdateAfterMetadataValidation("metadataGroup");
+
+		assertTrue(extendedFunctionalitiesForUpdateAfterValidation.size() > 0);
 	}
 }
