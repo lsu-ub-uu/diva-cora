@@ -45,8 +45,8 @@ public class OrganisationTypeRemoverTest {
 	}
 
 	@Test
-	public void testOrganisationTypeNotRemovedIfRootOrganisationIsNo() {
-		DataGroup dataGroup = createOrganisationDataGroupWithRootOrganisation("no");
+	public void testOrganisationTypeNotRemovedIfRootOrganisationIsAbsent() {
+		DataGroup dataGroup = createOrganisationDataGroupWithOrganisationType();
 
 		organisationTypeRemover.useExtendedFunctionality("authToken", dataGroup);
 
@@ -54,23 +54,42 @@ public class OrganisationTypeRemoverTest {
 		assertEquals(dataGroup.getAllDataAtomicsWithNameInData("organisationType").size(), 1);
 	}
 
-	private DataGroup createOrganisationDataGroupWithRootOrganisation(String yesOrNo) {
-		DataGroup dataGroup = DataGroupProvider.getDataGroupUsingNameInData("organisation");
+	@Test
+	public void testOrganisationTypeNotRemovedIfRootOrganisationIsNo() {
+		DataGroup dataGroup = createOrganisationDataGroupWithRootOrganisationAndOrganisationType(
+				"no");
+
+		organisationTypeRemover.useExtendedFunctionality("authToken", dataGroup);
+
+		dataGroup.getAllDataAtomicsWithNameInData("organisationType");
+		assertEquals(dataGroup.getAllDataAtomicsWithNameInData("organisationType").size(), 1);
+	}
+
+	private DataGroup createOrganisationDataGroupWithRootOrganisationAndOrganisationType(
+			String yesOrNo) {
+		DataGroup dataGroup = createOrganisationDataGroupWithOrganisationType();
 
 		DataAtomic organisationRoot = DataAtomicProvider
 				.getDataAtomicUsingNameInDataAndValue("rootOrganisation", yesOrNo);
 
+		dataGroup.addChild(organisationRoot);
+
+		return dataGroup;
+	}
+
+	private DataGroup createOrganisationDataGroupWithOrganisationType() {
+		DataGroup dataGroup = DataGroupProvider.getDataGroupUsingNameInData("organisation");
+
 		DataAtomic organisationType = DataAtomicProvider
 				.getDataAtomicUsingNameInDataAndValue("organisationType", "someType");
-
-		dataGroup.addChild(organisationRoot);
 		dataGroup.addChild(organisationType);
 		return dataGroup;
 	}
 
 	@Test
 	public void testOrganisationTypeRemovedIfRootOrganisationIsYes() {
-		DataGroup dataGroup = createOrganisationDataGroupWithRootOrganisation("yes");
+		DataGroup dataGroup = createOrganisationDataGroupWithRootOrganisationAndOrganisationType(
+				"yes");
 
 		organisationTypeRemover.useExtendedFunctionality("authToken", dataGroup);
 

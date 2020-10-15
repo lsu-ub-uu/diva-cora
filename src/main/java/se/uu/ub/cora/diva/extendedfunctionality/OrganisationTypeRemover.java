@@ -25,10 +25,12 @@ public class OrganisationTypeRemover implements ExtendedFunctionality {
 
 	@Override
 	public void useExtendedFunctionality(String authToken, DataGroup dataGroup) {
-		String rootOrganisation = dataGroup.getFirstAtomicValueWithNameInData("rootOrganisation");
-		if ("yes".equals(rootOrganisation)) {
-			dataGroup.removeAllChildrenWithNameInData("organisationType");
+		if (dataGroup.containsChildWithNameInData("rootOrganisation")) {
+			String rootOrganisation = dataGroup
+					.getFirstAtomicValueWithNameInData("rootOrganisation");
+			if ("yes".equals(rootOrganisation)) {
+				dataGroup.removeAllChildrenWithNameInData("organisationType");
+			}
 		}
 	}
-
 }
