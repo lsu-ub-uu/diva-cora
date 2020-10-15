@@ -29,7 +29,6 @@ public class OrganisationTypeRemover implements ExtendedFunctionality {
 		if ("yes".equals(rootOrganisation)) {
 			dataGroup.removeAllChildrenWithNameInData("organisationType");
 		}
-
 	}
 
 }
