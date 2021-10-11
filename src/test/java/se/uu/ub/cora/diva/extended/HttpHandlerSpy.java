@@ -8,6 +8,8 @@ public class HttpHandlerSpy implements HttpHandler {
 
 	public String requestMethod;
 	public int responseCode;
+	public boolean getResponseCodeWasCalled = false;
+	public String responseText;
 
 	@Override
 	public void setRequestMethod(String requestMethod) {
@@ -18,12 +20,13 @@ public class HttpHandlerSpy implements HttpHandler {
 
 	@Override
 	public String getResponseText() {
-		// TODO Auto-generated method stub
-		return null;
+		responseText = "Some response text from httpHandlerSpy";
+		return responseText;
 	}
 
 	@Override
 	public int getResponseCode() {
+		getResponseCodeWasCalled = true;
 		return responseCode;
 	}
 
