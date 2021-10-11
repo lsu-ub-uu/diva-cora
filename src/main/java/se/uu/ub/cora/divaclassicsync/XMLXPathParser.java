@@ -27,8 +27,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import se.uu.ub.cora.diva.mixedstorage.ParseException;
-
 public final class XMLXPathParser {
 	private static final String XPATH_STRING_ERROR_MESSAGE = "Unable to use xpathString: ";
 	private Document document;

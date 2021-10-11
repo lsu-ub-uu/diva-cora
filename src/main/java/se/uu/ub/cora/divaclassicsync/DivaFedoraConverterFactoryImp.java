@@ -19,8 +19,6 @@
 
 package se.uu.ub.cora.divaclassicsync;
 
-import se.uu.ub.cora.diva.mixedstorage.NotImplementedException;
-import se.uu.ub.cora.httphandler.HttpHandlerFactoryImp;
 import se.uu.ub.cora.xmlutils.transformer.CoraTransformation;
 import se.uu.ub.cora.xmlutils.transformer.CoraTransformationFactory;
 
@@ -58,20 +56,20 @@ public class DivaFedoraConverterFactoryImp implements DivaFedoraConverterFactory
 		return new DivaFedoraToCoraConverterImp(coraTransformation);
 	}
 
-	@Override
-	public DivaCoraToFedoraConverter factorToFedoraConverter(String type) {
-		if ("person".equals(type)) {
-			HttpHandlerFactoryImp httpHandlerFactory = new HttpHandlerFactoryImp();
-			return DivaCoraToFedoraPersonConverter
-					.usingHttpHandlerFactoryAndFedoraUrl(httpHandlerFactory, fedoraURL);
-		}
-		throw NotImplementedException.withMessage("No converter implemented for: " + type);
-	}
-
-	public String getFedoraURL() {
-		// needed for tests
-		return fedoraURL;
-	}
+	// @Override
+	// public DivaCoraToFedoraConverter factorToFedoraConverter(String type) {
+	// if ("person".equals(type)) {
+	// HttpHandlerFactoryImp httpHandlerFactory = new HttpHandlerFactoryImp();
+	// return DivaCoraToFedoraPersonConverter
+	// .usingHttpHandlerFactoryAndFedoraUrl(httpHandlerFactory, fedoraURL);
+	// }
+	// throw NotImplementedException.withMessage("No converter implemented for: " + type);
+	// }
+	//
+	// public String getFedoraURL() {
+	// // needed for tests
+	// return fedoraURL;
+	// }
 
 	public CoraTransformationFactory getCoraTransformerFactory() {
 		return coraTransformationFactory;

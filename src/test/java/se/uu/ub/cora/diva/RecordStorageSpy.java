@@ -34,6 +34,9 @@ public class RecordStorageSpy implements RecordStorage {
 	public List<String> readRecordIds = new ArrayList<>();
 	public List<DataGroupDomainSpy> returnedDataGroups = new ArrayList<>();
 	public Map<String, DataGroupDomainSpy> returnOnRead = new HashMap<>();
+	public List<String> createRecordTypes = new ArrayList<>();
+	public List<String> createRecordIds = new ArrayList<>();
+	public List<DataGroup> createDataGroups = new ArrayList<>();
 
 	@Override
 	public DataGroup read(String type, String id) {
@@ -52,8 +55,9 @@ public class RecordStorageSpy implements RecordStorage {
 	@Override
 	public void create(String type, String id, DataGroup record, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider) {
-		// TODO Auto-generated method stub
-
+		createRecordTypes.add(type);
+		createDataGroups.add(record);
+		createRecordIds.add(id);
 	}
 
 	@Override

@@ -26,11 +26,13 @@ import se.uu.ub.cora.diva.extended.DataGroupSpy;
 public class DivaFedoraToCoraConverterSpy implements DivaFedoraToCoraConverter {
 
 	public String xml;
+	public DataGroupSpy factoredGroup;
 
 	@Override
 	public DataGroup fromXML(String xml) {
 		this.xml = xml;
-		return new DataGroupSpy("");
+		factoredGroup = new DataGroupSpy("someNameInData");
+		return factoredGroup;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, 2019 Uppsala University Library
+ * Copyright 2018 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,10 +18,24 @@
  */
 package se.uu.ub.cora.divaclassicsync;
 
-public interface DivaFedoraConverterFactory {
+public final class ParseException extends RuntimeException {
 
-	DivaFedoraToCoraConverter factorToCoraConverter(String type);
+	private static final long serialVersionUID = 1L;
 
-	// DivaCoraToFedoraConverter factorToFedoraConverter(String type);
+	public static ParseException withMessage(String message) {
+		return new ParseException(message);
+	}
+
+	public static ParseException withMessageAndException(String message, Exception e) {
+		return new ParseException(message, e);
+	}
+
+	private ParseException(String message) {
+		super(message);
+	}
+
+	private ParseException(String message, Exception e) {
+		super(message, e);
+	}
 
 }

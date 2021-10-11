@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, 2019 Uppsala University Library
+ * Copyright 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,10 +18,28 @@
  */
 package se.uu.ub.cora.divaclassicsync;
 
-public interface DivaFedoraConverterFactory {
+import se.uu.ub.cora.converter.Converter;
+import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.diva.extended.DataGroupSpy;
 
-	DivaFedoraToCoraConverter factorToCoraConverter(String type);
+public class ConverterSpy implements Converter {
 
-	// DivaCoraToFedoraConverter factorToFedoraConverter(String type);
+	public DataElement dataElement;
+	public String dataString;
+	public String stringToReturn = "some returned string from converter spy";
+	public DataGroupSpy dataGroupToReturn;
+
+	@Override
+	public String convert(DataElement dataElement) {
+		this.dataElement = dataElement;
+		return stringToReturn;
+	}
+
+	@Override
+	public DataElement convert(String dataString) {
+		this.dataString = dataString;
+		dataGroupToReturn = new DataGroupSpy("someNameInData");
+		return dataGroupToReturn;
+	}
 
 }

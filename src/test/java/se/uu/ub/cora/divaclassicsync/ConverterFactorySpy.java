@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Uppsala University Library
+ * Copyright 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,10 +18,23 @@
  */
 package se.uu.ub.cora.divaclassicsync;
 
-import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.converter.Converter;
+import se.uu.ub.cora.converter.ConverterFactory;
 
-public interface DivaCoraToFedoraConverter {
+public class ConverterFactorySpy implements ConverterFactory {
 
-	String toXML(DataGroup record);
+	public ConverterSpy factoredConverter;
+
+	@Override
+	public Converter factorConverter() {
+		factoredConverter = new ConverterSpy();
+		return factoredConverter;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

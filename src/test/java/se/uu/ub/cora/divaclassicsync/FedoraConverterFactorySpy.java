@@ -29,11 +29,11 @@ public class FedoraConverterFactorySpy implements DivaFedoraConverterFactory {
 		factoredFedoraConverter = new DivaFedoraToCoraConverterSpy();
 		return factoredFedoraConverter;
 	}
-
-	@Override
-	public DivaCoraToFedoraConverter factorToFedoraConverter(String type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//
+	// @Override
+	// public DivaCoraToFedoraConverter factorToFedoraConverter(String type) {
+	// // TODO Auto-generated method stub
+	// return null;
+	// }
 
 }

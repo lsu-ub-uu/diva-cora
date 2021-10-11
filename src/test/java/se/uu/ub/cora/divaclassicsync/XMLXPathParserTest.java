@@ -20,8 +20,6 @@ package se.uu.ub.cora.divaclassicsync;
 
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.diva.mixedstorage.ParseException;
-
 public class XMLXPathParserTest {
 
 	@Test(expectedExceptions = ParseException.class, expectedExceptionsMessageRegExp = ""

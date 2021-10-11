@@ -54,6 +54,9 @@
 		<sqldatabase.version>5.0-SNAPSHOT</sqldatabase.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
 		<testutils.version>1.1.1</testutils.version>
+		<xmlutils.version>1.1.0</xmlutils.version>
+		<xmlconverter.version>1.6.0</xmlconverter.version>
+		<converter.version>1.5.0</converter.version>
 	</properties>
 
 	<scm>
@@ -189,6 +192,22 @@
 			<artifactId>testutils</artifactId>
 			<version>${testutils.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>xmlutils</artifactId>
+			<version>${xmlutils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>xmlconverter</artifactId>
+			<version>${xmlconverter.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>converter</artifactId>
+			<version>${converter.version}</version>
 		</dependency>
 	</dependencies>
 </project>

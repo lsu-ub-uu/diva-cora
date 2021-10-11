@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, 2019 Uppsala University Library
+ * Copyright 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,10 +18,19 @@
  */
 package se.uu.ub.cora.divaclassicsync;
 
-public interface DivaFedoraConverterFactory {
+import se.uu.ub.cora.xmlutils.transformer.CoraTransformation;
+import se.uu.ub.cora.xmlutils.transformer.CoraTransformationFactory;
 
-	DivaFedoraToCoraConverter factorToCoraConverter(String type);
+public class TransformationFactorySpy implements CoraTransformationFactory {
 
-	// DivaCoraToFedoraConverter factorToFedoraConverter(String type);
+	public CoraTransformationSpy transformationSpy;
+	public String xsltPath;
+
+	@Override
+	public CoraTransformation factor(String xsltPath) {
+		this.xsltPath = xsltPath;
+		transformationSpy = new CoraTransformationSpy();
+		return transformationSpy;
+	}
 
 }

@@ -25,6 +25,7 @@ import static org.testng.Assert.assertTrue;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import se.uu.ub.cora.diva.RecordStorageSpy;
 import se.uu.ub.cora.diva.extended.HttpHandlerFactorySpy;
 import se.uu.ub.cora.diva.extended.HttpHandlerSpy;
 import se.uu.ub.cora.storage.RecordNotFoundException;
@@ -35,14 +36,16 @@ public class ClassicAndCoraSynchronizerTest {
 	private ClassicCoraSynchronizerImp synchronizer;
 	private String baseURL;
 	private FedoraConverterFactorySpy fedoraConverterFactory;
+	private RecordStorageSpy dbStorage;
 
 	@BeforeMethod
 	public void setUp() {
 		baseURL = "someBaseUrl";
 		httpHandlerFactory = new HttpHandlerFactorySpy();
 		fedoraConverterFactory = new FedoraConverterFactorySpy();
-		synchronizer = new ClassicCoraSynchronizerImp(httpHandlerFactory, fedoraConverterFactory,
-				baseURL);
+		dbStorage = new RecordStorageSpy();
+		synchronizer = new ClassicCoraSynchronizerImp(dbStorage, httpHandlerFactory,
+				fedoraConverterFactory, baseURL);
 
 	}
 
@@ -82,6 +85,9 @@ public class ClassicAndCoraSynchronizerTest {
 		DivaFedoraToCoraConverterSpy factoredFedoraConverter = fedoraConverterFactory.factoredFedoraConverter;
 		assertEquals(factoredFedoraConverter.xml, factoredHttpHandler.responseText);
 
+		assertSame(factoredFedoraConverter.factoredGroup, dbStorage.createDataGroups.get(0));
+		assertEquals(dbStorage.createRecordTypes.get(0), "person");
+		assertEquals(dbStorage.createRecordIds.get(0), "someRecordId");
 	}
 
 }

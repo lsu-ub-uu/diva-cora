@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, 2019 Uppsala University Library
+ * Copyright 2018 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,10 +18,15 @@
  */
 package se.uu.ub.cora.divaclassicsync;
 
-public interface DivaFedoraConverterFactory {
+import static org.testng.Assert.assertEquals;
 
-	DivaFedoraToCoraConverter factorToCoraConverter(String type);
+import org.testng.annotations.Test;
 
-	// DivaCoraToFedoraConverter factorToFedoraConverter(String type);
-
+public class NotImplementedExceptionTest {
+	@Test
+	public void testInit() {
+		String message = "message";
+		NotImplementedException exception = NotImplementedException.withMessage(message);
+		assertEquals(exception.getMessage(), "message");
+	}
 }
