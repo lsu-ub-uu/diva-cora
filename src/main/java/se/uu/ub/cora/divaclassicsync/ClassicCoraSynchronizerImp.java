@@ -57,6 +57,7 @@ public class ClassicCoraSynchronizerImp implements ClassicCoraSynchronizer {
 		DivaFedoraToCoraConverter toCoraConverter = fedoraConverterFactory // *
 				.factorToCoraConverter("person");
 		DataGroup dataGroup = toCoraConverter.fromXML(responseText);
+		// TODO: create i vissa fall, update i andra - hur veta?
 		// TODO: collectedTerms, linklist, dataDivider
 		recordStorage.create(recordType, recordId, dataGroup, null, null, "");
 	}
