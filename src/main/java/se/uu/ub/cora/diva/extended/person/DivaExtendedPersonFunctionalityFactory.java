@@ -72,6 +72,7 @@ public class DivaExtendedPersonFunctionalityFactory implements ExtendedFunctiona
 
 		contexts.add(new ExtendedFunctionalityContext(UPDATE_AFTER_METADATA_VALIDATION,
 				PERSON_DOMAIN_PART, 0));
+		contexts.add(new ExtendedFunctionalityContext(UPDATE_AFTER_STORE, PERSON_DOMAIN_PART, 0));
 		contexts.add(new ExtendedFunctionalityContext(DELETE_BEFORE, PERSON_DOMAIN_PART, 0));
 		contexts.add(new ExtendedFunctionalityContext(DELETE_AFTER, PERSON_DOMAIN_PART, 0));
 	}
