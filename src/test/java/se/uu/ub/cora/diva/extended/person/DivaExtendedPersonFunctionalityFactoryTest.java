@@ -93,12 +93,14 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 				"personDomainPart", 0);
 		assertCorrectContextUsingPositionRecordTypeAndRunAsNumber(UPDATE_AFTER_METADATA_VALIDATION,
 				"personDomainPart", 0);
+		assertCorrectContextUsingPositionRecordTypeAndRunAsNumber(UPDATE_AFTER_STORE,
+				"personDomainPart", 0);
 		assertCorrectContextUsingPositionRecordTypeAndRunAsNumber(DELETE_BEFORE, "personDomainPart",
 				0);
 		assertCorrectContextUsingPositionRecordTypeAndRunAsNumber(DELETE_AFTER, "personDomainPart",
 				0);
 
-		assertEquals(divaExtendedFunctionality.getExtendedFunctionalityContexts().size(), 8);
+		assertEquals(divaExtendedFunctionality.getExtendedFunctionalityContexts().size(), 9);
 	}
 
 	private void assertCorrectContextUsingPositionRecordTypeAndRunAsNumber(
