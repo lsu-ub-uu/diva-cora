@@ -133,7 +133,7 @@ public class ClassicFedoraModifierTest {
 		httpHandlerFactory.responseTexts.add("some default responseText");
 		fedoraUpdater.createInFedora("someRecordType", "someRecordId", dataGroup);
 
-		String createUrl = "someBaseUrl/objects/someRecordId";
+		String createUrl = "someBaseUrl/objects/someRecordId?label=coraWritten";
 		HttpHandlerSpy createHttpHandler = httpHandlerFactory.factoredHttpHandlers.get(0);
 		assertNotNull(createHttpHandler);
 

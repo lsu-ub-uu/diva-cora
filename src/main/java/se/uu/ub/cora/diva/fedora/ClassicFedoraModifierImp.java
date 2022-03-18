@@ -106,7 +106,7 @@ public class ClassicFedoraModifierImp implements ClassicFedoraModifier {
 	@Override
 	public void createInFedora(String recordType, String recordId, DataGroup dataGroup) {
 		String url = fedoraConnectionInfo.fedoraUrl + "objects/" + recordId;
-		createObjectInFedora(recordId, url);
+		createObjectInFedora(recordId, url + "?label=coraWritten");
 
 		String fedoraXML = convertRecordToFedoraXML(recordType, dataGroup);
 		createDatastreamInFedora(recordId, url, fedoraXML);
