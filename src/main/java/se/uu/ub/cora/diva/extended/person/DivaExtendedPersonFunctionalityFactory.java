@@ -38,7 +38,7 @@ import se.uu.ub.cora.diva.classic.RelatedLinkCollectorFactory;
 import se.uu.ub.cora.diva.classic.RelatedLinkCollectorFactoryImp;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollector;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollectorImp;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactoryImp;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifierFactoryImp;
 import se.uu.ub.cora.fedora.FedoraConnectionInfo;
 import se.uu.ub.cora.httphandler.HttpHandlerFactoryImp;
 import se.uu.ub.cora.spider.dependency.SpiderDependencyProvider;
@@ -165,21 +165,21 @@ public class DivaExtendedPersonFunctionalityFactory implements ExtendedFunctiona
 
 	private ExtendedFunctionality createClassicPersonSynchronizer(RecordStorage recordStorage,
 			String recordType) {
-		ClassicFedoraUpdaterFactoryImp fedoraUpdaterFactory = createClassicFedoraUpdaterFactory(
+		ClassicFedoraModifierFactoryImp fedoraUpdaterFactory = createClassicFedoraUpdaterFactory(
 				recordStorage);
 		ClassicIndexerFactory classicIndexerFactory = createClassicIndexerFactory();
 		return new ClassicPersonUpdateSynchronizer(fedoraUpdaterFactory, classicIndexerFactory,
 				recordType, recordStorage);
 	}
 
-	private ClassicFedoraUpdaterFactoryImp createClassicFedoraUpdaterFactory(
+	private ClassicFedoraModifierFactoryImp createClassicFedoraUpdaterFactory(
 			RecordStorage recordStorage) {
 		HttpHandlerFactoryImp httpHandlerFactory = new HttpHandlerFactoryImp();
 
 		RepeatableRelatedLinkCollector repeatableLinkCollector = createRepeatableLinkCollector(
 				recordStorage);
 		FedoraConnectionInfo fedoraConnectionInfo = createFedoraConnectionInfo();
-		return new ClassicFedoraUpdaterFactoryImp(httpHandlerFactory, repeatableLinkCollector,
+		return new ClassicFedoraModifierFactoryImp(httpHandlerFactory, repeatableLinkCollector,
 				fedoraConnectionInfo);
 	}
 
@@ -261,7 +261,7 @@ public class DivaExtendedPersonFunctionalityFactory implements ExtendedFunctiona
 
 	private ExtendedFunctionality createClassicPersonCreateSynchronizer(RecordStorage recordStorage,
 			String recordType) {
-		ClassicFedoraUpdaterFactoryImp fedoraUpdaterFactory = createClassicFedoraUpdaterFactory(
+		ClassicFedoraModifierFactoryImp fedoraUpdaterFactory = createClassicFedoraUpdaterFactory(
 				recordStorage);
 		ClassicIndexerFactory classicIndexerFactory = createClassicIndexerFactory();
 		return new ClassicPersonCreateSynchronizer(fedoraUpdaterFactory, classicIndexerFactory,

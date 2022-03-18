@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.spies.classic.ClassicFedoraUpdaterFactorySpy;
-import se.uu.ub.cora.diva.spies.classic.ClassicFedoraUpdaterSpy;
+import se.uu.ub.cora.diva.spies.classic.ClassicFedoraModifierSpy;
 import se.uu.ub.cora.diva.spies.classic.ClassicIndexerFactorySpy;
 import se.uu.ub.cora.diva.spies.classic.ClassicIndexerSpy;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
@@ -79,7 +79,7 @@ public class ClassicPersonCreateSynchronizerTest {
 
 	private void assertCorrectCallToUpdater(DataGroup person) {
 		assertEquals(classicFedoraUpdaterFactory.recordType, "person");
-		ClassicFedoraUpdaterSpy classicUpdater = classicFedoraUpdaterFactory.factoredUpdater;
+		ClassicFedoraModifierSpy classicUpdater = classicFedoraUpdaterFactory.factoredUpdater;
 		assertEquals(classicUpdater.recordType, "person");
 		assertEquals(classicUpdater.recordId, "personId:235");
 		assertSame(classicUpdater.dataGroup, person);

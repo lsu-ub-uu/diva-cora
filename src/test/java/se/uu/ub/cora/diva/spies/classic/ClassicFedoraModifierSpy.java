@@ -19,9 +19,9 @@
 package se.uu.ub.cora.diva.spies.classic;
 
 import se.uu.ub.cora.data.DataGroup;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdater;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifier;
 
-public class ClassicFedoraUpdaterSpy implements ClassicFedoraUpdater {
+public class ClassicFedoraModifierSpy implements ClassicFedoraModifier {
 
 	public String recordType;
 	public String recordId;

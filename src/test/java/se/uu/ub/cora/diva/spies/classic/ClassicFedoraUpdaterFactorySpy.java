@@ -18,18 +18,18 @@
  */
 package se.uu.ub.cora.diva.spies.classic;
 
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdater;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactory;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifier;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifierFactory;
 
-public class ClassicFedoraUpdaterFactorySpy implements ClassicFedoraUpdaterFactory {
+public class ClassicFedoraUpdaterFactorySpy implements ClassicFedoraModifierFactory {
 
 	public String recordType;
-	public ClassicFedoraUpdaterSpy factoredUpdater;
+	public ClassicFedoraModifierSpy factoredUpdater;
 
 	@Override
-	public ClassicFedoraUpdater factor(String recordType) {
+	public ClassicFedoraModifier factor(String recordType) {
 		this.recordType = recordType;
-		factoredUpdater = new ClassicFedoraUpdaterSpy();
+		factoredUpdater = new ClassicFedoraModifierSpy();
 		return factoredUpdater;
 	}
 

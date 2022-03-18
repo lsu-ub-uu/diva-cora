@@ -27,7 +27,7 @@ import se.uu.ub.cora.fedora.FedoraException;
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 
-public class ClassicFedoraUpdaterImp implements ClassicFedoraUpdater {
+public class ClassicFedoraModifierImp implements ClassicFedoraModifier {
 
 	private static final int CREATED = 201;
 	private static final int OK = 200;
@@ -35,7 +35,7 @@ public class ClassicFedoraUpdaterImp implements ClassicFedoraUpdater {
 	private DivaFedoraConverterFactory divaCoraToFedoraConverterFactory;
 	private FedoraConnectionInfo fedoraConnectionInfo;
 
-	public ClassicFedoraUpdaterImp(HttpHandlerFactory httpHandlerFactory,
+	public ClassicFedoraModifierImp(HttpHandlerFactory httpHandlerFactory,
 			DivaFedoraConverterFactory divaCoraToFedoraConverterFactory,
 			FedoraConnectionInfo fedoraConnectionInfo) {
 		this.httpHandlerFactory = httpHandlerFactory;

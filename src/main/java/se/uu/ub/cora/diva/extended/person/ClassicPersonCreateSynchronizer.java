@@ -20,8 +20,8 @@ package se.uu.ub.cora.diva.extended.person;
 
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.classic.ClassicIndexerFactory;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdater;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactory;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifier;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifierFactory;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
 import se.uu.ub.cora.storage.RecordStorage;
@@ -29,7 +29,7 @@ import se.uu.ub.cora.storage.RecordStorage;
 public class ClassicPersonCreateSynchronizer extends ClassicPersonSynchronizer
 		implements ExtendedFunctionality {
 
-	public ClassicPersonCreateSynchronizer(ClassicFedoraUpdaterFactory classicFedoraUpdaterFactory,
+	public ClassicPersonCreateSynchronizer(ClassicFedoraModifierFactory classicFedoraUpdaterFactory,
 			ClassicIndexerFactory classicIndexer, String recordType, RecordStorage recordStorage) {
 		this.classicFedoraUpdaterFactory = classicFedoraUpdaterFactory;
 		this.classicIndexerFactory = classicIndexer;
@@ -46,7 +46,7 @@ public class ClassicPersonCreateSynchronizer extends ClassicPersonSynchronizer
 	}
 
 	private void createInClassic(DataGroup dataGroup, String recordId) {
-		ClassicFedoraUpdater fedoraUpdater = classicFedoraUpdaterFactory.factor(PERSON);
+		ClassicFedoraModifier fedoraUpdater = classicFedoraUpdaterFactory.factor(PERSON);
 		fedoraUpdater.createInFedora(PERSON, recordId, dataGroup);
 	}
 

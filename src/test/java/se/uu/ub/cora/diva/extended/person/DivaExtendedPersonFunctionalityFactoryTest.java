@@ -39,7 +39,7 @@ import org.testng.annotations.Test;
 import se.uu.ub.cora.diva.classic.ClassicIndexerFactoryImp;
 import se.uu.ub.cora.diva.classic.RelatedLinkCollectorFactoryImp;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollectorImp;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactoryImp;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifierFactoryImp;
 import se.uu.ub.cora.diva.spies.LoggerFactorySpy;
 import se.uu.ub.cora.diva.spies.spider.SpiderDependencyProviderSpy;
 import se.uu.ub.cora.fedora.FedoraConnectionInfo;
@@ -163,7 +163,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 	private void assertCorrectlyCreatedClassicSynchronizer(
 			ClassicPersonUpdateSynchronizer classicSynchronizer, String recordType) {
 
-		ClassicFedoraUpdaterFactoryImp classicFedoraUpdaterFactory = (ClassicFedoraUpdaterFactoryImp) classicSynchronizer
+		ClassicFedoraModifierFactoryImp classicFedoraUpdaterFactory = (ClassicFedoraModifierFactoryImp) classicSynchronizer
 				.getClassicFedoraUpdaterFactory();
 		assertCorrectFedoraUpdaterFactory(classicFedoraUpdaterFactory);
 		ClassicIndexerFactoryImp classicIndexer = (ClassicIndexerFactoryImp) classicSynchronizer
@@ -174,7 +174,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 	}
 
 	private void assertCorrectFedoraUpdaterFactory(
-			ClassicFedoraUpdaterFactoryImp classicFedoraUpdaterFactory) {
+			ClassicFedoraModifierFactoryImp classicFedoraUpdaterFactory) {
 		assertTrue(classicFedoraUpdaterFactory
 				.getHttpHandlerFactory() instanceof HttpHandlerFactoryImp);
 		assertCorrectFedoraConnectionInfo(classicFedoraUpdaterFactory);
@@ -182,7 +182,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 	}
 
 	private void assertCorrectFedoraConnectionInfo(
-			ClassicFedoraUpdaterFactoryImp classicFedoraUpdaterFactory) {
+			ClassicFedoraModifierFactoryImp classicFedoraUpdaterFactory) {
 		FedoraConnectionInfo fedoraConnectionInfo = classicFedoraUpdaterFactory
 				.getFedoraConnectionInfo();
 		assertEquals(fedoraConnectionInfo.fedoraUrl, "someFedoraUrl");
@@ -191,7 +191,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 	}
 
 	private void assertCorrectRelatedLinkCollector(
-			ClassicFedoraUpdaterFactoryImp classicFedoraUpdaterFactory) {
+			ClassicFedoraModifierFactoryImp classicFedoraUpdaterFactory) {
 		RepeatableRelatedLinkCollectorImp repeatableRelatedLinkCollector = (RepeatableRelatedLinkCollectorImp) classicFedoraUpdaterFactory
 				.getRepeatableRelatedLinkCollector();
 		RelatedLinkCollectorFactoryImp relatedLinkCollectorFactory = (RelatedLinkCollectorFactoryImp) repeatableRelatedLinkCollector
@@ -214,7 +214,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 
 		ClassicPersonSynchronizer classicSynchronizer = (ClassicPersonSynchronizer) functionalities
 				.get(0);
-		assertCorrectFedoraUpdaterFactory((ClassicFedoraUpdaterFactoryImp) classicSynchronizer
+		assertCorrectFedoraUpdaterFactory((ClassicFedoraModifierFactoryImp) classicSynchronizer
 				.getClassicFedoraUpdaterFactory());
 		ClassicIndexerFactoryImp classicIndexer = (ClassicIndexerFactoryImp) classicSynchronizer
 				.getClassicIndexer();

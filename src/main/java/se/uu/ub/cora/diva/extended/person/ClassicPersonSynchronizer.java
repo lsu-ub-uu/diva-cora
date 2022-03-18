@@ -21,13 +21,13 @@ package se.uu.ub.cora.diva.extended.person;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.classic.ClassicIndexer;
 import se.uu.ub.cora.diva.classic.ClassicIndexerFactory;
-import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactory;
+import se.uu.ub.cora.diva.fedora.ClassicFedoraModifierFactory;
 import se.uu.ub.cora.storage.RecordStorage;
 
 public class ClassicPersonSynchronizer {
 
 	protected static final String PERSON = "person";
-	protected ClassicFedoraUpdaterFactory classicFedoraUpdaterFactory;
+	protected ClassicFedoraModifierFactory classicFedoraUpdaterFactory;
 	protected ClassicIndexerFactory classicIndexerFactory;
 	protected String recordType;
 	protected RecordStorage recordStorage;
@@ -42,7 +42,7 @@ public class ClassicPersonSynchronizer {
 		return recordInfo.getFirstAtomicValueWithNameInData("id");
 	}
 
-	public ClassicFedoraUpdaterFactory getClassicFedoraUpdaterFactory() {
+	public ClassicFedoraModifierFactory getClassicFedoraUpdaterFactory() {
 		return classicFedoraUpdaterFactory;
 	}
 

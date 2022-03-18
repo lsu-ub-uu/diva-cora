@@ -31,10 +31,10 @@ import se.uu.ub.cora.diva.exception.NotImplementedException;
 import se.uu.ub.cora.fedora.FedoraConnectionInfo;
 import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;
 
-public class ClassicFedoraUpdaterFactoryTest {
+public class ClassicFedoraModifierFactoryTest {
 
 	private HttpHandlerFactorySpy httpHandlerFactory;
-	private ClassicFedoraUpdaterFactoryImp factory;
+	private ClassicFedoraModifierFactoryImp factory;
 	private String baseUrl = "someBaseUrl";
 	private String username = "someUserName";
 	private String password = "somePassword";
@@ -46,7 +46,7 @@ public class ClassicFedoraUpdaterFactoryTest {
 		httpHandlerFactory = new HttpHandlerFactorySpy();
 		repeatableLinkCollector = new RepeatableLinkCollectorSpy();
 		fedoraConnectionInfo = new FedoraConnectionInfo(baseUrl, username, password);
-		factory = new ClassicFedoraUpdaterFactoryImp(httpHandlerFactory, repeatableLinkCollector,
+		factory = new ClassicFedoraModifierFactoryImp(httpHandlerFactory, repeatableLinkCollector,
 				fedoraConnectionInfo);
 	}
 
@@ -60,7 +60,7 @@ public class ClassicFedoraUpdaterFactoryTest {
 	@Test
 	public void testFactorPerson() {
 		String recordType = "person";
-		ClassicFedoraUpdaterImp updater = (ClassicFedoraUpdaterImp) factory.factor(recordType);
+		ClassicFedoraModifierImp updater = (ClassicFedoraModifierImp) factory.factor(recordType);
 		assertSame(updater.getHttpHandlerFactory(), httpHandlerFactory);
 		FedoraConnectionInfo fedoraConnectionInfoUpdater = updater.getFedoraConnectionInfo();
 		assertSame(fedoraConnectionInfoUpdater, fedoraConnectionInfo);

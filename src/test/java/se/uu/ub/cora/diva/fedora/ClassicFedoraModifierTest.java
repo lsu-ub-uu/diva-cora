@@ -37,9 +37,9 @@ import se.uu.ub.cora.fedora.FedoraException;
 import se.uu.ub.cora.logger.LoggerFactory;
 import se.uu.ub.cora.logger.LoggerProvider;
 
-public class ClassicFedoraUpdaterTest {
+public class ClassicFedoraModifierTest {
 
-	private ClassicFedoraUpdaterImp fedoraUpdater;
+	private ClassicFedoraModifierImp fedoraUpdater;
 	private HttpHandlerFactorySpy httpHandlerFactory;
 	private DivaFedoraConverterFactorySpy fedoraConverterFactory;
 	private ConverterFactorySpy dataGroupToXmlConverterFactory;
@@ -60,7 +60,7 @@ public class ClassicFedoraUpdaterTest {
 		FedoraConnectionInfo fedoraConnectionInfo = new FedoraConnectionInfo(baseUrl,
 				fedoraUsername, fedoraPassword);
 
-		fedoraUpdater = new ClassicFedoraUpdaterImp(httpHandlerFactory, fedoraConverterFactory,
+		fedoraUpdater = new ClassicFedoraModifierImp(httpHandlerFactory, fedoraConverterFactory,
 				fedoraConnectionInfo);
 
 	}

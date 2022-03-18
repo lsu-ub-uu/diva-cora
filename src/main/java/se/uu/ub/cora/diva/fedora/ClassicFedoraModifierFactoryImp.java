@@ -25,13 +25,13 @@ import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 import se.uu.ub.cora.xmlutils.transformer.CoraTransformationFactory;
 import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;
 
-public class ClassicFedoraUpdaterFactoryImp implements ClassicFedoraUpdaterFactory {
+public class ClassicFedoraModifierFactoryImp implements ClassicFedoraModifierFactory {
 
 	private HttpHandlerFactory httpHandlerFactory;
 	private RepeatableRelatedLinkCollector repeatableLinkCollector;
 	private FedoraConnectionInfo fedoraConnectionInfo;
 
-	public ClassicFedoraUpdaterFactoryImp(HttpHandlerFactory httpHandlerFactory,
+	public ClassicFedoraModifierFactoryImp(HttpHandlerFactory httpHandlerFactory,
 			RepeatableRelatedLinkCollector repeatableLinkCollector,
 			FedoraConnectionInfo fedoraConnectionInfo) {
 		this.httpHandlerFactory = httpHandlerFactory;
@@ -40,11 +40,11 @@ public class ClassicFedoraUpdaterFactoryImp implements ClassicFedoraUpdaterFacto
 	}
 
 	@Override
-	public ClassicFedoraUpdater factor(String recordType) {
+	public ClassicFedoraModifier factor(String recordType) {
 		if ("person".equals(recordType)) {
 			DivaFedoraConverterFactory divaFedoraConverterFactory = createDivaFedoraConverterFactory();
 
-			return new ClassicFedoraUpdaterImp(httpHandlerFactory, divaFedoraConverterFactory,
+			return new ClassicFedoraModifierImp(httpHandlerFactory, divaFedoraConverterFactory,
 					fedoraConnectionInfo);
 		}
 		throw NotImplementedException

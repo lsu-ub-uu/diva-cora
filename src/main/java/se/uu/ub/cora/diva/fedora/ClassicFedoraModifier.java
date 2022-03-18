@@ -18,22 +18,30 @@
  */
 package se.uu.ub.cora.diva.fedora;
 
+import se.uu.ub.cora.data.DataGroup;
+
 /**
- * ClassicFedoraUpdaterFactory factors a ClassicFedoraUpdater
+ * ClassicFedoraUpdater is used to synchronize updates between storage in Cora and fedora storage in
+ * classic
  */
-public interface ClassicFedoraUpdaterFactory {
+public interface ClassicFedoraModifier {
 
 	/**
-	 * factor factors a ClassicFedoraUpdater, using recordType to determine which
-	 * ClassicFedoraUpdater to return
+	 * updateInFedora updates a record in classic fedora storage
 	 * 
-	 * If no ClassicFedoraUpdater can be factored, a NotImplementedException SHOULD be thrown
+	 * If update of fedora fails, a FedoraExceptionFedoraException SHOULD be thrown
 	 * 
 	 * @param String
-	 *            recordType, the type used to determine which ClassicFedoraUpdater to return
+	 *            recordType, the recordType of the record to be updated
 	 * 
-	 * @return a ClassicFedoraUpdater, suitable for the recordType
+	 * @param String
+	 *            recordId, the record id of the record to be updated
+	 * 
+	 * @param DataGroup
+	 *            dataGroup, the dataGroup to convert and store in Fedora
 	 */
-	ClassicFedoraUpdater factor(String recordType);
+	void updateInFedora(String recordType, String recordId, DataGroup dataGroup);
+
+	void createInFedora(String recordType, String recordId, DataGroup dataGroup);
 
 }
