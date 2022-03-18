@@ -129,17 +129,36 @@ public class ClassicFedoraUpdaterTest {
 
 	@Test
 	public void testHttpHandlerForCreate() {
-		httpHandlerFactory.responseCodes = List.of(201);
+		httpHandlerFactory.responseCodes = List.of(201, 201);
+		httpHandlerFactory.responseTexts.add("some default responseText");
 		fedoraUpdater.createInFedora("someRecordType", "someRecordId", dataGroup);
 
-		// String createUrl = "someBaseUrl/objects/someRecordId?format=?xml&logMessage=coraWritten";
-		String createUrl = "someBaseUrl/objects/someRecordId?format=info:fedora/fedora-system:FOXML-1.1&logMessage=coraWritten";
-		assertCorrectCallToHttpHandler(createUrl, "POST");
+		String createUrl = "someBaseUrl/objects/someRecordId";
+		HttpHandlerSpy createHttpHandler = httpHandlerFactory.factoredHttpHandlers.get(0);
+		assertNotNull(createHttpHandler);
+
+		assertEquals(httpHandlerFactory.urls.get(0), createUrl);
+		assertEquals(createHttpHandler.requestMethod, "POST");
+		assertEquals(createHttpHandler.outputStrings.size(), 0);
+		assertEquals(createHttpHandler.requestProperties.get("Content-Type"), "text/xml");
+		assertCorrectCredentials(createHttpHandler);
+
+		HttpHandlerSpy datastreamHttpHandler = httpHandlerFactory.factoredHttpHandlers.get(1);
+		assertNotNull(datastreamHttpHandler);
+		assertEquals(httpHandlerFactory.urls.get(1),
+				"someBaseUrl/objects/someRecordId/datastreams/METADATA?dsLabel=coraWritten");
+		assertEquals(datastreamHttpHandler.requestMethod, "POST");
+		assertEquals(datastreamHttpHandler.requestProperties.get("Content-Type"), "text/xml");
+
+		DivaCoraToFedoraConverterSpy factoredConverter = (DivaCoraToFedoraConverterSpy) fedoraConverterFactory.factoredToFedoraConverters
+				.get(0);
+		assertEquals(factoredConverter.returnedXML, datastreamHttpHandler.outputStrings.get(0));
 	}
 
 	@Test
 	public void testCreateInFedora() {
-		httpHandlerFactory.responseCodes = List.of(201);
+		httpHandlerFactory.responseCodes = List.of(201, 201);
+		httpHandlerFactory.responseTexts.add("some default responseText");
 
 		fedoraUpdater.createInFedora("someRecordType", "someRecordId", dataGroup);
 		DivaCoraToFedoraConverterSpy divaCoraToFedoraConverter = (DivaCoraToFedoraConverterSpy) fedoraConverterFactory.factoredToFedoraConverters
@@ -148,10 +167,20 @@ public class ClassicFedoraUpdaterTest {
 	}
 
 	@Test(expectedExceptions = FedoraException.class, expectedExceptionsMessageRegExp = ""
-			+ "create to fedora failed for record: someRecordId, with response code: 505")
+			+ "Create to fedora failed for record: someRecordId, with response code: 505")
 	public void testErrorFromFedoraOnCreate() {
 		httpHandlerFactory.responseCodes = new ArrayList<>();
 		httpHandlerFactory.responseCodes.add(505);
+		fedoraUpdater.createInFedora("someRecordType", "someRecordId", dataGroup);
+	}
+
+	@Test(expectedExceptions = FedoraException.class, expectedExceptionsMessageRegExp = ""
+			+ "Adding datastream in fedora failed for record: someRecordId, with response code: 505")
+	public void testErrorFromFedoraOnCreateAddingDatastream() {
+		httpHandlerFactory.responseCodes = new ArrayList<>();
+		httpHandlerFactory.responseCodes.add(201);
+		httpHandlerFactory.responseCodes.add(505);
+		httpHandlerFactory.responseTexts.add("some default responseText");
 		fedoraUpdater.createInFedora("someRecordType", "someRecordId", dataGroup);
 	}
 }
