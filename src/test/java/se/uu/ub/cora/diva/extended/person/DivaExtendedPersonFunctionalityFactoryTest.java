@@ -126,7 +126,7 @@ public class DivaExtendedPersonFunctionalityFactoryTest {
 				.factor(UPDATE_BEFORE_STORE, "person");
 		assertEquals(functionalities.size(), 1);
 		ExtendedFunctionality functionality = functionalities.get(0);
-		assertTrue(functionality instanceof PersonOrcidValidator);
+		assertTrue(functionality instanceof PersonPreventRemovalOfOrcid);
 
 	}
 

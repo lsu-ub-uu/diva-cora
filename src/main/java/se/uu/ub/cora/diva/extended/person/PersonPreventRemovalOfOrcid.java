@@ -21,44 +21,45 @@ package se.uu.ub.cora.diva.extended.person;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataAtomic;
-import se.uu.ub.cora.data.DataAtomicProvider;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.extended.ExtendedFunctionalityUtils;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
+import se.uu.ub.cora.spider.record.DataException;
 
-public class PersonOrcidValidator implements ExtendedFunctionality {
-
+/**
+ * PersonPreventRemovalOfOrcid ensures that an orcid can not be changed or removed from a person.
+ * Any removed orcid will result in a DataException.
+ */
+public class PersonPreventRemovalOfOrcid implements ExtendedFunctionality {
 	private static final String ORCID_ID = "ORCID_ID";
 
 	@Override
 	public void useExtendedFunctionality(ExtendedFunctionalityData data) {
 		List<String> previousOrcidValues = extractOrcids(data.previouslyStoredTopDataGroup);
-
-		DataGroup updatedDataGroup = data.dataGroup;
-		List<String> currentOrcidValues = extractOrcids(updatedDataGroup);
-
-		ensureNoOrcidsHasBeenDeleted(updatedDataGroup, previousOrcidValues, currentOrcidValues);
+		List<String> currentOrcidValues = extractOrcids(data.dataGroup);
+		ensureNoOrcidsHasBeenDeleted(previousOrcidValues, currentOrcidValues);
 	}
 
-	private List<String> extractOrcids(DataGroup previousRecord) {
-		List<DataAtomic> previousOrcids = previousRecord.getAllDataAtomicsWithNameInData(ORCID_ID);
-		return ExtendedFunctionalityUtils.getDataAtomicValuesAsList(previousOrcids);
+	private List<String> extractOrcids(DataGroup dataRecord) {
+		List<DataAtomic> orcids = dataRecord.getAllDataAtomicsWithNameInData(ORCID_ID);
+		return ExtendedFunctionalityUtils.getDataAtomicValuesAsList(orcids);
 	}
 
-	private void ensureNoOrcidsHasBeenDeleted(DataGroup updatedDataGroup,
-			List<String> previousValues, List<String> currentValues) {
+	private void ensureNoOrcidsHasBeenDeleted(List<String> previousValues,
+			List<String> currentValues) {
 		for (String previousValue : previousValues) {
-			if (valueHasBeenRemoved(currentValues, previousValue)) {
-				updatedDataGroup.addChild(DataAtomicProvider
-						.getDataAtomicUsingNameInDataAndValue(ORCID_ID, previousValue));
-			}
+			throwExceptionIfOrcidIsDeleted(currentValues, previousValue);
 		}
-		ExtendedFunctionalityUtils.setNewRepeatIdsToEnsureUnique(updatedDataGroup, ORCID_ID);
+	}
+
+	private void throwExceptionIfOrcidIsDeleted(List<String> currentValues, String previousValue) {
+		if (valueHasBeenRemoved(currentValues, previousValue)) {
+			throw new DataException("ORCIDs that already exist, can not be removed.");
+		}
 	}
 
 	private boolean valueHasBeenRemoved(List<String> currentOrcidValues, String previousOrcid) {
 		return !currentOrcidValues.contains(previousOrcid);
 	}
-
 }

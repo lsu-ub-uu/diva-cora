@@ -230,7 +230,7 @@ public class DivaExtendedPersonFunctionalityFactory implements ExtendedFunctiona
 			return addFunctionalityForPersonAfterStore();
 		}
 		if (UPDATE_BEFORE_STORE == position) {
-			return createListAndAddFunctionality(new PersonOrcidValidator());
+			return createListAndAddFunctionality(new PersonPreventRemovalOfOrcid());
 		}
 		return Collections.emptyList();
 	}
