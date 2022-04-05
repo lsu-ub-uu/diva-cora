@@ -18,6 +18,8 @@
  */
 package se.uu.ub.cora.diva.extended.person;
 
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -64,6 +66,19 @@ public class PersonDomainPartPreventRemovalOfIdentifierTest {
 		data.recordId = "authorityPerson:123:uu";
 		data.previouslyStoredTopDataGroup = previousPersonDomainPart;
 		data.dataGroup = updatedPersonDomainPart;
+	}
+
+	@Test
+	public void testNoRemovedLocalId() throws Exception {
+		ExtendedFunctionality functionality = new PersonDomainPartPreventRemovalOfIdentifier();
+		data.dataGroup = previousPersonDomainPart;
+
+		functionality.useExtendedFunctionality(data);
+		makeSureNoErrorIsThrownBeforeThisLine();
+	}
+
+	private void makeSureNoErrorIsThrownBeforeThisLine() {
+		assertTrue(true);
 	}
 
 	@Test(expectedExceptions = DataException.class, expectedExceptionsMessageRegExp = ""

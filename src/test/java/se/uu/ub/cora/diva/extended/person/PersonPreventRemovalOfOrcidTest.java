@@ -18,6 +18,8 @@
  */
 package se.uu.ub.cora.diva.extended.person;
 
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -64,6 +66,19 @@ public class PersonPreventRemovalOfOrcidTest {
 		dataUpdatedPerson.recordId = "authority-person:001";
 		dataUpdatedPerson.previouslyStoredTopDataGroup = previousPerson;
 		dataUpdatedPerson.dataGroup = updatedPerson;
+	}
+
+	@Test
+	public void testNoRemovedOrcid() throws Exception {
+		ExtendedFunctionality functionality = new PersonPreventRemovalOfOrcid();
+		dataUpdatedPerson.dataGroup = previousPerson;
+
+		functionality.useExtendedFunctionality(dataUpdatedPerson);
+		makeSureNoErrorIsThrownBeforeThisLine();
+	}
+
+	private void makeSureNoErrorIsThrownBeforeThisLine() {
+		assertTrue(true);
 	}
 
 	@Test(expectedExceptions = DataException.class, expectedExceptionsMessageRegExp = ""
