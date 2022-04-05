@@ -5,7 +5,7 @@ module se.uu.ub.cora.diva {
 	requires se.uu.ub.cora.httphandler;
 	requires se.uu.ub.cora.logger;
 	requires se.uu.ub.cora.storage;
-	requires se.uu.ub.cora.fedora;
+	requires se.uu.ub.cora.fedoralegacy;
 	requires se.uu.ub.cora.converter;
 	requires se.uu.ub.cora.xmlutils;
 

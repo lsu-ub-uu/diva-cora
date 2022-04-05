@@ -39,7 +39,7 @@ import se.uu.ub.cora.diva.classic.RelatedLinkCollectorFactoryImp;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollector;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollectorImp;
 import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactoryImp;
-import se.uu.ub.cora.fedora.FedoraConnectionInfo;
+import se.uu.ub.cora.fedoralegacy.FedoraConnectionInfo;
 import se.uu.ub.cora.httphandler.HttpHandlerFactoryImp;
 import se.uu.ub.cora.spider.dependency.SpiderDependencyProvider;
 import se.uu.ub.cora.spider.dependency.SpiderInitializationException;

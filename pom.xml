@@ -48,7 +48,7 @@
 		<gatekeeper.version>3.11.0</gatekeeper.version>
 		<gatekeeperclient.version>3.14.0</gatekeeperclient.version>
 		<divamixedstorage.version>5.2.0</divamixedstorage.version>
-		<fedora3x.version>3.1.0</fedora3x.version>
+		<fedora3x.version>4.0-SNAPSHOT</fedora3x.version>
 		<solrsearch.version>4.6.0</solrsearch.version>
 		<metacreator.version>4.7.0</metacreator.version>
 		<httphandler.version>2.5.0</httphandler.version>
@@ -208,7 +208,7 @@
 			<artifactId>converter</artifactId>
 			<version>${converter.version}</version>
 		</dependency>
-		<dependency>
+ 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>fedoraarchive</artifactId>
 			<version>${fedoraarchive.version}</version>

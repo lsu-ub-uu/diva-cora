@@ -42,7 +42,7 @@ import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollectorImp;
 import se.uu.ub.cora.diva.fedora.ClassicFedoraUpdaterFactoryImp;
 import se.uu.ub.cora.diva.spies.LoggerFactorySpy;
 import se.uu.ub.cora.diva.spies.spider.SpiderDependencyProviderSpy;
-import se.uu.ub.cora.fedora.FedoraConnectionInfo;
+import se.uu.ub.cora.fedoralegacy.FedoraConnectionInfo;
 import se.uu.ub.cora.httphandler.HttpHandlerFactoryImp;
 import se.uu.ub.cora.logger.LoggerProvider;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;

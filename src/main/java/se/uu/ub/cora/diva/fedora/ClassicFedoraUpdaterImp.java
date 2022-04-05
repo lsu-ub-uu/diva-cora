@@ -22,8 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import se.uu.ub.cora.data.DataGroup;
-import se.uu.ub.cora.fedora.FedoraConnectionInfo;
-import se.uu.ub.cora.fedora.FedoraException;
+import se.uu.ub.cora.fedoralegacy.FedoraConnectionInfo;
+import se.uu.ub.cora.fedoralegacy.FedoraException;
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 

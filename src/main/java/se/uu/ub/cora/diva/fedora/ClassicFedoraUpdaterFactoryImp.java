@@ -20,7 +20,7 @@ package se.uu.ub.cora.diva.fedora;
 
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollector;
 import se.uu.ub.cora.diva.exception.NotImplementedException;
-import se.uu.ub.cora.fedora.FedoraConnectionInfo;
+import se.uu.ub.cora.fedoralegacy.FedoraConnectionInfo;
 import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 import se.uu.ub.cora.xmlutils.transformer.CoraTransformationFactory;
 import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;

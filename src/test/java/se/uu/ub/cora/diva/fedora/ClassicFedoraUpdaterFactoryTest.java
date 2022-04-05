@@ -28,7 +28,7 @@ import org.testng.annotations.Test;
 import se.uu.ub.cora.diva.classic.RepeatableLinkCollectorSpy;
 import se.uu.ub.cora.diva.classic.RepeatableRelatedLinkCollector;
 import se.uu.ub.cora.diva.exception.NotImplementedException;
-import se.uu.ub.cora.fedora.FedoraConnectionInfo;
+import se.uu.ub.cora.fedoralegacy.FedoraConnectionInfo;
 import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;
 
 public class ClassicFedoraUpdaterFactoryTest {
