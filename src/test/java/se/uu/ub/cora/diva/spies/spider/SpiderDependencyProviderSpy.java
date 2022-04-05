@@ -41,6 +41,7 @@ import se.uu.ub.cora.spider.recordtype.RecordTypeHandler;
 import se.uu.ub.cora.storage.RecordIdGenerator;
 import se.uu.ub.cora.storage.RecordStorage;
 import se.uu.ub.cora.storage.StreamStorage;
+import se.uu.ub.cora.storage.archive.RecordArchive;
 
 public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 
@@ -146,6 +147,12 @@ public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 
 	@Override
 	public DataGroupToRecordEnhancer getDataGroupToRecordEnhancer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RecordArchive getRecordArchive() {
 		// TODO Auto-generated method stub
 		return null;
 	}
