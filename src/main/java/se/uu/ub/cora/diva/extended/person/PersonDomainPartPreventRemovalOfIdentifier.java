@@ -21,56 +21,47 @@ package se.uu.ub.cora.diva.extended.person;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataAtomic;
-import se.uu.ub.cora.data.DataAtomicProvider;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.extended.ExtendedFunctionalityUtils;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
+import se.uu.ub.cora.spider.record.DataException;
 
 /**
  * PersonDomainPartPreventRemovalOfIdentifier ensures that an identifier can not be changed or
- * removed from a personDomainPart. Any changed or removed identifiers will be readded from stored
- * data.
+ * removed from a personDomainPart. Any removed identifiers will result in a DataException.
  */
 public class PersonDomainPartPreventRemovalOfIdentifier implements ExtendedFunctionality {
-
 	private static final String IDENTIFIER = "identifier";
 
 	@Override
 	public void useExtendedFunctionality(ExtendedFunctionalityData data) {
-		DataGroup previousDomainPart = data.previouslyStoredTopDataGroup;
-		List<String> previousIdentifierValues = extractIdentifiers(previousDomainPart);
-
-		DataGroup updatedDataGroup = data.dataGroup;
-		List<String> currentIdentifierValues = extractIdentifiers(updatedDataGroup);
-
-		ensureNoIdentifiersHasBeenDeleted(updatedDataGroup, previousIdentifierValues,
-				currentIdentifierValues);
+		List<String> previousIdentifierValues = extractIdentifiers(
+				data.previouslyStoredTopDataGroup);
+		List<String> currentIdentifierValues = extractIdentifiers(data.dataGroup);
+		ensureNoIdentifiersHasBeenDeleted(previousIdentifierValues, currentIdentifierValues);
 	}
 
-	private List<String> extractIdentifiers(DataGroup previousRecord) {
-		List<DataAtomic> previousIdentifiers = previousRecord
-				.getAllDataAtomicsWithNameInData(IDENTIFIER);
-		return ExtendedFunctionalityUtils.getDataAtomicValuesAsList(previousIdentifiers);
+	private List<String> extractIdentifiers(DataGroup dataRecord) {
+		List<DataAtomic> identifiers = dataRecord.getAllDataAtomicsWithNameInData(IDENTIFIER);
+		return ExtendedFunctionalityUtils.getDataAtomicValuesAsList(identifiers);
 	}
 
-	private void ensureNoIdentifiersHasBeenDeleted(DataGroup updatedDataGroup,
-			List<String> previousValues, List<String> currentValues) {
+	private void ensureNoIdentifiersHasBeenDeleted(List<String> previousValues,
+			List<String> currentValues) {
 		for (String previousValue : previousValues) {
-			if (valueHasBeenRemoved(currentValues, previousValue)) {
-				addValue(updatedDataGroup, previousValue);
-			}
+			throwExceptionIfIdentifierIsDeleted(currentValues, previousValue);
 		}
-		ExtendedFunctionalityUtils.setNewRepeatIdsToEnsureUnique(updatedDataGroup, IDENTIFIER);
+	}
+
+	private void throwExceptionIfIdentifierIsDeleted(List<String> currentValues,
+			String previousValue) {
+		if (valueHasBeenRemoved(currentValues, previousValue)) {
+			throw new DataException("LocalIds that already exist, can not be removed.");
+		}
 	}
 
 	private boolean valueHasBeenRemoved(List<String> currentValues, String previousValue) {
 		return !currentValues.contains(previousValue);
 	}
-
-	private void addValue(DataGroup updatedDataGroup, String previousValue) {
-		updatedDataGroup.addChild(
-				DataAtomicProvider.getDataAtomicUsingNameInDataAndValue(IDENTIFIER, previousValue));
-	}
-
 }
