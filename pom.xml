@@ -47,7 +47,7 @@
 		<basicstorage.version>5.4.0</basicstorage.version>
 		<gatekeeper.version>3.11.0</gatekeeper.version>
 		<gatekeeperclient.version>3.14.0</gatekeeperclient.version>
-		<divamixedstorage.version>5.2.0</divamixedstorage.version>
+		<divamixedstorage.version>5.3-SNAPSHOT</divamixedstorage.version>
 		<fedora3x.version>4.0-SNAPSHOT</fedora3x.version>
 		<solrsearch.version>4.6.0</solrsearch.version>
 		<metacreator.version>4.7.0</metacreator.version>
