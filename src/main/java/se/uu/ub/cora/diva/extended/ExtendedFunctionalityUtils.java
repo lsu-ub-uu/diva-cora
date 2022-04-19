@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataAtomic;
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 
 public class ExtendedFunctionalityUtils {
@@ -34,7 +34,7 @@ public class ExtendedFunctionalityUtils {
 
 	public static void setNewRepeatIdsToEnsureUnique(DataGroup dataGroup, String nameInData) {
 		int i = 0;
-		for (DataElement repetable : dataGroup.getAllChildrenWithNameInData(nameInData)) {
+		for (DataChild repetable : dataGroup.getAllChildrenWithNameInData(nameInData)) {
 			repetable.setRepeatId(String.valueOf(i));
 			i++;
 		}

@@ -26,18 +26,18 @@ import java.util.Map;
 
 import se.uu.ub.cora.data.DataAtomic;
 import se.uu.ub.cora.data.DataAttribute;
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 
 public class DataGroupSpy implements DataGroup {
 
 	public String nameInData;
-	public List<DataElement> children = new ArrayList<>();
-	public List<DataElement> groupChildren = new ArrayList<>();
+	public List<DataChild> children = new ArrayList<>();
+	public List<DataChild> groupChildren = new ArrayList<>();
 	public List<String> getAllGroupsUsedNameInDatas = new ArrayList<>();
-	public Map<String, List<DataElement>> childrenToReturn = new HashMap<>();
+	public Map<String, List<DataChild>> childrenToReturn = new HashMap<>();
 	public List<String> removeAllGroupsUsedNameInDatas = new ArrayList<>();
-	public List<DataElement> addedChildren = new ArrayList<>();
+	public List<DataChild> addedChildren = new ArrayList<>();
 	public List<String> returnContainsTrueNameInDatas = new ArrayList<>();
 	public List<String> requestedAtomicNameInDatas = new ArrayList<>();
 	public String recordType;
@@ -82,21 +82,21 @@ public class DataGroupSpy implements DataGroup {
 	}
 
 	@Override
-	public void addChildren(Collection<DataElement> dataElements) {
-		for (DataElement dataElement : dataElements) {
+	public void addChildren(Collection<DataChild> dataElements) {
+		for (DataChild dataElement : dataElements) {
 			addedChildren.add(dataElement);
 		}
 
 	}
 
 	@Override
-	public List<DataElement> getChildren() {
+	public List<DataChild> getChildren() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<DataElement> getAllChildrenWithNameInData(String nameInData) {
+	public List<DataChild> getAllChildrenWithNameInData(String nameInData) {
 		// getAllGroupsUsedNameInDatas.add(nameInData);
 		if (childrenToReturn.containsKey(nameInData)) {
 			return childrenToReturn.get(nameInData);
@@ -105,14 +105,14 @@ public class DataGroupSpy implements DataGroup {
 	}
 
 	@Override
-	public List<DataElement> getAllChildrenWithNameInDataAndAttributes(String nameInData,
+	public List<DataChild> getAllChildrenWithNameInDataAndAttributes(String nameInData,
 			DataAttribute... childAttributes) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public DataElement getFirstChildWithNameInData(String nameInData) {
+	public DataChild getFirstChildWithNameInData(String nameInData) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -120,7 +120,7 @@ public class DataGroupSpy implements DataGroup {
 	@Override
 	public String getFirstAtomicValueWithNameInData(String nameInData) {
 		requestedAtomicNameInDatas.add(nameInData);
-		for (DataElement dataElement : children) {
+		for (DataChild dataElement : children) {
 			if (nameInData.equals(dataElement.getNameInData())) {
 				if (dataElement instanceof DataAtomic) {
 					return ((DataAtomic) dataElement).getValue();
@@ -138,7 +138,7 @@ public class DataGroupSpy implements DataGroup {
 
 	@Override
 	public DataGroup getFirstGroupWithNameInData(String childNameInData) {
-		for (DataElement dataElement : children) {
+		for (DataChild dataElement : children) {
 			if (childNameInData.equals(dataElement.getNameInData())) {
 				if (dataElement instanceof DataGroup) {
 					return ((DataGroup) dataElement);
@@ -149,7 +149,7 @@ public class DataGroupSpy implements DataGroup {
 	}
 
 	@Override
-	public void addChild(DataElement dataElement) {
+	public void addChild(DataChild dataElement) {
 		if (dataElement instanceof DataGroup) {
 			groupChildren.add(dataElement);
 		}
@@ -162,7 +162,7 @@ public class DataGroupSpy implements DataGroup {
 		getAllGroupsUsedNameInDatas.add(nameInData);
 		List<DataGroup> matchingDataGroups = new ArrayList<>();
 		if (childrenToReturn.containsKey(nameInData)) {
-			for (DataElement dataElement : childrenToReturn.get(nameInData)) {
+			for (DataChild dataElement : childrenToReturn.get(nameInData)) {
 				if (nameInData.equals(dataElement.getNameInData())
 						&& dataElement instanceof DataGroup) {
 					matchingDataGroups.add((DataGroup) dataElement);
@@ -200,7 +200,7 @@ public class DataGroupSpy implements DataGroup {
 
 	@Override
 	public DataAtomic getFirstDataAtomicWithNameInData(String childNameInData) {
-		for (DataElement dataElement : children) {
+		for (DataChild dataElement : children) {
 			if (childNameInData.equals(dataElement.getNameInData())) {
 				if (dataElement instanceof DataAtomic) {
 					return ((DataAtomic) dataElement);
@@ -230,6 +230,13 @@ public class DataGroupSpy implements DataGroup {
 
 	@Override
 	public Collection<DataAttribute> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<DataAtomic> getAllDataAtomicsWithNameInDataAndAttributes(
+			String childNameInData, DataAttribute... childAttributes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

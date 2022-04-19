@@ -27,7 +27,7 @@ import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
 import se.uu.ub.cora.diva.spies.data.DataGroupSpy;
@@ -45,7 +45,7 @@ public class OrganisationDuplicateLinksRemoverTest {
 	@Test
 	public void testTwoDifferentParents() {
 		dataGroup.returnContainsTrueNameInDatas.add("parentOrganisation");
-		List<DataElement> parents = new ArrayList<>();
+		List<DataChild> parents = new ArrayList<>();
 
 		DataGroup parent1 = createOrganisationLinkUsingRepeatIdAndOrganisationId(
 				"parentOrganisation", "0", "51");
@@ -72,7 +72,7 @@ public class OrganisationDuplicateLinksRemoverTest {
 	@Test
 	public void testTwoSameParentOneOther() {
 		dataGroup.returnContainsTrueNameInDatas.add("parentOrganisation");
-		List<DataElement> parents = new ArrayList<>();
+		List<DataChild> parents = new ArrayList<>();
 
 		DataGroup parent1 = createOrganisationLinkUsingRepeatIdAndOrganisationId(
 				"parentOrganisation", "0", "51");
@@ -112,7 +112,7 @@ public class OrganisationDuplicateLinksRemoverTest {
 	@Test
 	public void testTwoDifferentPredecessors() {
 		dataGroup.returnContainsTrueNameInDatas.add("earlierOrganisation");
-		List<DataElement> predecessors = new ArrayList<>();
+		List<DataChild> predecessors = new ArrayList<>();
 
 		DataGroup predecessor1 = createOrganisationLinkUsingRepeatIdAndOrganisationId(
 				"earlierOrganisation", "0", "51");
@@ -132,7 +132,7 @@ public class OrganisationDuplicateLinksRemoverTest {
 	@Test
 	public void testTwoSamePredecessorsOneOther() {
 		dataGroup.returnContainsTrueNameInDatas.add("earlierOrganisation");
-		List<DataElement> parents = new ArrayList<>();
+		List<DataChild> parents = new ArrayList<>();
 
 		DataGroup predecessor1 = createOrganisationLinkUsingRepeatIdAndOrganisationId(
 				"earlierOrganisation", "0", "51");

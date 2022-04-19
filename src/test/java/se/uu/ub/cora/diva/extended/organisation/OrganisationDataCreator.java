@@ -21,23 +21,23 @@ package se.uu.ub.cora.diva.extended.organisation;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
 import se.uu.ub.cora.diva.spies.data.DataGroupSpy;
 
 public class OrganisationDataCreator {
 
-	public static List<DataElement> createListWithOneParentUsingRepeatIdAndParentId(
+	public static List<DataChild> createListWithOneParentUsingRepeatIdAndParentId(
 			DataGroup dataGroup, String repeatId, String parentId) {
 		return createListWithOneParentUsingRepeatIdAndParentIdAndDomain(dataGroup, repeatId,
 				parentId, "someDomain");
 
 	}
 
-	public static List<DataElement> createListWithOneParentUsingRepeatIdAndParentIdAndDomain(
+	public static List<DataChild> createListWithOneParentUsingRepeatIdAndParentIdAndDomain(
 			DataGroup dataGroup, String repeatId, String parentId, String domain) {
-		List<DataElement> parents = new ArrayList<>();
+		List<DataChild> parents = new ArrayList<>();
 		DataGroup parent = createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(
 				dataGroup, "parentOrganisation", repeatId, parentId);
 		parent.addChild(new DataAtomicSpy("domain", domain));
@@ -57,9 +57,9 @@ public class OrganisationDataCreator {
 		return parentGroup;
 	}
 
-	public static List<DataElement> createListAndAddPredecessorUsingRepeatIdAndId(
-			DataGroup dataGroup, String repeatId, String parentId) {
-		List<DataElement> predecessors = new ArrayList<>();
+	public static List<DataChild> createListAndAddPredecessorUsingRepeatIdAndId(DataGroup dataGroup,
+			String repeatId, String parentId) {
+		List<DataChild> predecessors = new ArrayList<>();
 		DataGroup predecessor = OrganisationDataCreator
 				.createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(dataGroup,
 						"earlierOrganisation", repeatId, parentId);
