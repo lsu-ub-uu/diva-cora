@@ -38,27 +38,27 @@
 		<logger.version>2.5.0</logger.version>
 		<coralog4j.version>2.9.0</coralog4j.version>
 		<json.version>3.3.0</json.version>
-		<spider.version>7.0-SNAPSHOT</spider.version>
-		<therest.version>9.0-SNAPSHOT</therest.version>
+		<spider.version>7.0.0</spider.version>
+		<therest.version>9.1.0</therest.version>
 		<beefeater.version>3.7.0</beefeater.version>
-		<bookkeeper.version>7.0-SNAPSHOT</bookkeeper.version>
-		<basicdata.version>4.0-SNAPSHOT</basicdata.version>
-		<storage.version>6.2-SNAPSHOT</storage.version>
-		<basicstorage.version>6.0-SNAPSHOT</basicstorage.version>
-		<gatekeeper.version>3.12.0</gatekeeper.version>
-		<gatekeeperclient.version>4.0-SNAPSHOT</gatekeeperclient.version>
-		<divamixedstorage.version>6.0-SNAPSHOT</divamixedstorage.version>
-		<fedora3x.version>4.1.0</fedora3x.version>
-		<solrsearch.version>4.8-SNAPSHOT</solrsearch.version>
-		<metacreator.version>5.0-SNAPSHOT</metacreator.version>
+		<bookkeeper.version>7.0.0</bookkeeper.version>
+		<basicdata.version>4.0.0</basicdata.version>
+		<storage.version>6.2.0</storage.version>
+		<basicstorage.version>6.0.0</basicstorage.version>
+		<gatekeeper.version>3.13.0</gatekeeper.version>
+		<gatekeeperclient.version>4.0.0</gatekeeperclient.version>
+		<divamixedstorage.version>6.0.0</divamixedstorage.version>
+		<fedora3x.version>4.2.0</fedora3x.version>
+		<solrsearch.version>4.8.0</solrsearch.version>
+		<metacreator.version>5.0.0</metacreator.version>
 		<httphandler.version>2.6.0</httphandler.version>
 		<apptokenstorage.version>2.5.0</apptokenstorage.version>
-		<sqldatabase.version>6.3.0</sqldatabase.version>
+		<sqldatabase.version>6.4.0</sqldatabase.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
-		<xmlutils.version>1.6-SNAPSHOT</xmlutils.version>
-		<converter.version>3.0-SNAPSHOT</converter.version>
-		<fedoraarchive.version>1.2-SNAPSHOT</fedoraarchive.version>
-		<testutils.version>1.4-SNAPSHOT</testutils.version>
+		<xmlutils.version>1.6.0</xmlutils.version>
+		<converter.version>3.0.0</converter.version>
+		<fedoraarchive.version>1.2.0</fedoraarchive.version>
+		<testutils.version>1.4.0</testutils.version>
 	</properties>
 
 	<scm>
