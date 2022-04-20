@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
@@ -39,7 +39,7 @@ public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality 
 	private void handleChildrenInDataGroupUsingNameInData(DataGroup dataGroup, String nameInData) {
 		if (dataGroup.containsChildWithNameInData(nameInData)) {
 			List<DataGroup> organisations = dataGroup.getAllGroupsWithNameInData(nameInData);
-			List<DataElement> elementsToKeep = calculateParentsToKeep(organisations);
+			List<DataChild> elementsToKeep = calculateParentsToKeep(organisations);
 
 			if (organisationListHasBeenReduced(organisations, elementsToKeep)) {
 				dataGroup.removeAllChildrenWithNameInData(nameInData);
@@ -49,21 +49,21 @@ public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality 
 	}
 
 	private boolean organisationListHasBeenReduced(List<DataGroup> organisations,
-			List<DataElement> elementsToKeep) {
+			List<DataChild> elementsToKeep) {
 		return organisations.size() != elementsToKeep.size();
 	}
 
-	private List<DataElement> calculateParentsToKeep(List<DataGroup> parentOrganisations) {
-		Map<String, DataElement> sortedParents = new HashMap<>();
-		List<DataElement> elementsToKeep = new ArrayList<>();
+	private List<DataChild> calculateParentsToKeep(List<DataGroup> parentOrganisations) {
+		Map<String, DataChild> sortedParents = new HashMap<>();
+		List<DataChild> elementsToKeep = new ArrayList<>();
 		for (DataGroup parentGroup : parentOrganisations) {
 			calculateWhetherToKeepOrganisation(sortedParents, elementsToKeep, parentGroup);
 		}
 		return elementsToKeep;
 	}
 
-	private void calculateWhetherToKeepOrganisation(Map<String, DataElement> sortedParents,
-			List<DataElement> elementsToKeep, DataGroup parentGroup) {
+	private void calculateWhetherToKeepOrganisation(Map<String, DataChild> sortedParents,
+			List<DataChild> elementsToKeep, DataGroup parentGroup) {
 		DataGroup parentLink = parentGroup.getFirstGroupWithNameInData("organisationLink");
 		String organisationId = parentLink.getFirstAtomicValueWithNameInData("linkedRecordId");
 		if (organisationDoesNotAlreadyExist(sortedParents, organisationId)) {
@@ -72,7 +72,7 @@ public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality 
 		}
 	}
 
-	private boolean organisationDoesNotAlreadyExist(Map<String, DataElement> sortedParents,
+	private boolean organisationDoesNotAlreadyExist(Map<String, DataChild> sortedParents,
 			String organisationId) {
 		return !sortedParents.containsKey(organisationId);
 	}

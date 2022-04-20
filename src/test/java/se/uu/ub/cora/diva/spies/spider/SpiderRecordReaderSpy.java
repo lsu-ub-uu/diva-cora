@@ -21,7 +21,7 @@ package se.uu.ub.cora.diva.spies.spider;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.DataRecord;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
@@ -47,7 +47,7 @@ public class SpiderRecordReaderSpy implements RecordReader {
 		DataGroup domainPart2 = createDomainPart("somePerson:test");
 		person.addChild(domainPart2);
 
-		List<DataElement> domainParts = new ArrayList<>();
+		List<DataChild> domainParts = new ArrayList<>();
 		domainParts.add(domainPart);
 		domainParts.add(domainPart2);
 		person.childrenToReturn.put("personDomainPart", domainParts);

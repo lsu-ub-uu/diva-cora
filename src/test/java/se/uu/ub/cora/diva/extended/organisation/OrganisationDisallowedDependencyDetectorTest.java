@@ -28,7 +28,7 @@ import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
 import se.uu.ub.cora.diva.spies.data.DataGroupSpy;
@@ -84,7 +84,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 	}
 
 	private void addSelfAsParent() {
-		List<DataElement> parents = OrganisationDataCreator
+		List<DataChild> parents = OrganisationDataCreator
 				.createListWithOneParentUsingRepeatIdAndParentId(dataGroup, "0", "4567");
 
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
@@ -109,7 +109,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenOneParentInDataGroup() {
-		List<DataElement> parents = createListAndAddDefaultParent();
+		List<DataChild> parents = createListAndAddDefaultParent();
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
 
 		functionality.useExtendedFunctionality(createDefaultData(dataGroup));
@@ -130,7 +130,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 		assertEquals(values, expectedValues);
 	}
 
-	private List<DataElement> createListAndAddDefaultParent() {
+	private List<DataChild> createListAndAddDefaultParent() {
 		return OrganisationDataCreator.createListWithOneParentUsingRepeatIdAndParentId(dataGroup,
 				"0", "51");
 	}
@@ -147,7 +147,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenTwoParentsInDataGroup() {
-		List<DataElement> parents = createListAndAddDefaultParent();
+		List<DataChild> parents = createListAndAddDefaultParent();
 		DataGroup parent2 = OrganisationDataCreator
 				.createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(dataGroup,
 						"parentOrganisation", "1", "3");
@@ -171,10 +171,10 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenOneParentAndOnePredecessorInDataGroup() {
-		List<DataElement> parents = createListAndAddDefaultParent();
+		List<DataChild> parents = createListAndAddDefaultParent();
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
 
-		List<DataElement> predecessors = OrganisationDataCreator
+		List<DataChild> predecessors = OrganisationDataCreator
 				.createListAndAddPredecessorUsingRepeatIdAndId(dataGroup, "0", "78");
 		dataGroup.childrenToReturn.put("earlierOrganisation", predecessors);
 
@@ -196,7 +196,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenParentInDataGroupCircularDependencyExist() {
-		List<DataElement> parents = createListAndAddDefaultParent();
+		List<DataChild> parents = createListAndAddDefaultParent();
 		OrganisationDataCreator.createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(
 				dataGroup, "parentOrganisation", "0", "51");
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
@@ -214,7 +214,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenSamePresentInParentAndPredecessor() {
-		List<DataElement> parents = OrganisationDataCreator
+		List<DataChild> parents = OrganisationDataCreator
 				.createListWithOneParentUsingRepeatIdAndParentId(dataGroup, "0", "5");
 		DataGroup parent2 = OrganisationDataCreator
 				.createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(dataGroup,
@@ -222,7 +222,7 @@ public class OrganisationDisallowedDependencyDetectorTest {
 		parents.add(parent2);
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
 
-		List<DataElement> predecessors = OrganisationDataCreator
+		List<DataChild> predecessors = OrganisationDataCreator
 				.createListAndAddPredecessorUsingRepeatIdAndId(dataGroup, "0", "5");
 		DataGroup predecessor2 = OrganisationDataCreator
 				.createAndAddOrganisationLinkToDefaultUsingRepeatIdAndOrganisationId(dataGroup,
@@ -243,11 +243,11 @@ public class OrganisationDisallowedDependencyDetectorTest {
 
 	@Test
 	public void testWhenSamePresentInParentAndPredecessorNoStatementIsExecuted() {
-		List<DataElement> parents = OrganisationDataCreator
+		List<DataChild> parents = OrganisationDataCreator
 				.createListWithOneParentUsingRepeatIdAndParentId(dataGroup, "0", "5");
 		dataGroup.childrenToReturn.put("parentOrganisation", parents);
 
-		List<DataElement> predecessors = OrganisationDataCreator
+		List<DataChild> predecessors = OrganisationDataCreator
 				.createListAndAddPredecessorUsingRepeatIdAndId(dataGroup, "0", "5");
 
 		dataGroup.childrenToReturn.put("earlierOrganisation", predecessors);

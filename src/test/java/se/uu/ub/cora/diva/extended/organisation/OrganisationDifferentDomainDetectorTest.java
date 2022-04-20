@@ -27,7 +27,7 @@ import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.data.DataElement;
+import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
 import se.uu.ub.cora.diva.spies.data.DataGroupExtendedSpy;
@@ -81,7 +81,7 @@ public class OrganisationDifferentDomainDetectorTest {
 
 	@Test
 	public void testOneParentNoPredecessorSameDomain() {
-		List<DataElement> parents = createParentsUsingNumOfParents(1);
+		List<DataChild> parents = createParentsUsingNumOfParents(1);
 		dataGroup.addChildren(parents);
 
 		addOrganisationToReturnFromStorage("organisation_parent0", "someDomain");
@@ -104,21 +104,21 @@ public class OrganisationDifferentDomainDetectorTest {
 		recordStorage.returnOnRead.put(key, parentToReturnFromStorage);
 	}
 
-	public List<DataElement> createParentsUsingNumOfParents(int numOfParents) {
+	public List<DataChild> createParentsUsingNumOfParents(int numOfParents) {
 		String nameInData = "parentOrganisation";
 		return createOrganisationLinksUsingNameInDataAndNumOf(nameInData, numOfParents, "parent");
 
 	}
 
-	public List<DataElement> createPredecessorsUsingNumOfPredecessors(int numOf) {
+	public List<DataChild> createPredecessorsUsingNumOfPredecessors(int numOf) {
 		String nameInData = "earlierOrganisation";
 		return createOrganisationLinksUsingNameInDataAndNumOf(nameInData, numOf, "predecessor");
 
 	}
 
-	private List<DataElement> createOrganisationLinksUsingNameInDataAndNumOf(String nameInData,
+	private List<DataChild> createOrganisationLinksUsingNameInDataAndNumOf(String nameInData,
 			int numOfParents, String prefix) {
-		List<DataElement> parents = new ArrayList<>();
+		List<DataChild> parents = new ArrayList<>();
 		for (int i = 0; i < numOfParents; i++) {
 			String id = String.valueOf(i);
 			DataGroup parent = createOrganisationLinkUsingNameInDataRepeatIdAndOrgId(nameInData, id,
@@ -141,9 +141,9 @@ public class OrganisationDifferentDomainDetectorTest {
 		return parentGroup;
 	}
 
-	public List<DataElement> createListAndAddPredecessorUsingRepeatIdAndId(DataGroup dataGroup,
+	public List<DataChild> createListAndAddPredecessorUsingRepeatIdAndId(DataGroup dataGroup,
 			String repeatId, String parentId) {
-		List<DataElement> predecessors = new ArrayList<>();
+		List<DataChild> predecessors = new ArrayList<>();
 		DataGroup predecessor = createOrganisationLinkUsingNameInDataRepeatIdAndOrgId(
 				"earlierOrganisation", repeatId, parentId);
 		predecessors.add(predecessor);
@@ -153,7 +153,7 @@ public class OrganisationDifferentDomainDetectorTest {
 	@Test(expectedExceptions = DataException.class, expectedExceptionsMessageRegExp = ""
 			+ "Links to organisations from another domain is not allowed.")
 	public void testOneParentNoPredecessorDifferentDomain() {
-		List<DataElement> parents = createParentsUsingNumOfParents(1);
+		List<DataChild> parents = createParentsUsingNumOfParents(1);
 		dataGroup.addChildren(parents);
 		addOrganisationToReturnFromStorage("organisation_parent0", "someOtherDomain");
 
@@ -163,7 +163,7 @@ public class OrganisationDifferentDomainDetectorTest {
 	@Test(expectedExceptions = DataException.class, expectedExceptionsMessageRegExp = ""
 			+ "Links to organisations from another domain is not allowed.")
 	public void testTwoParentsNoPredecessorOneSameOneDifferentDomain() {
-		List<DataElement> parents = createParentsUsingNumOfParents(2);
+		List<DataChild> parents = createParentsUsingNumOfParents(2);
 		addOrganisationToReturnFromStorage("organisation_parent0", "someDomain");
 		addOrganisationToReturnFromStorage("organisation_parent1", "someOtherDomain");
 		dataGroup.addChildren(parents);
@@ -173,7 +173,7 @@ public class OrganisationDifferentDomainDetectorTest {
 
 	@Test
 	public void testNoParentOnePredecessorSameDomain() {
-		List<DataElement> predecessors = createPredecessorsUsingNumOfPredecessors(1);
+		List<DataChild> predecessors = createPredecessorsUsingNumOfPredecessors(1);
 		dataGroup.addChildren(predecessors);
 
 		addOrganisationToReturnFromStorage("organisation_predecessor0", "someDomain");
@@ -191,7 +191,7 @@ public class OrganisationDifferentDomainDetectorTest {
 	@Test(expectedExceptions = DataException.class, expectedExceptionsMessageRegExp = ""
 			+ "Links to organisations from another domain is not allowed.")
 	public void testNoParentOnePredecessorDifferentDomain() {
-		List<DataElement> predecessors = createPredecessorsUsingNumOfPredecessors(1);
+		List<DataChild> predecessors = createPredecessorsUsingNumOfPredecessors(1);
 		dataGroup.addChildren(predecessors);
 		addOrganisationToReturnFromStorage("organisation_predecessor0", "someOtherDomain");
 
@@ -200,9 +200,9 @@ public class OrganisationDifferentDomainDetectorTest {
 
 	@Test
 	public void testOneParentOnePredecessorSameDomain() {
-		List<DataElement> parents = createParentsUsingNumOfParents(1);
+		List<DataChild> parents = createParentsUsingNumOfParents(1);
 		dataGroup.addChildren(parents);
-		List<DataElement> predecessors = createPredecessorsUsingNumOfPredecessors(1);
+		List<DataChild> predecessors = createPredecessorsUsingNumOfPredecessors(1);
 		dataGroup.addChildren(predecessors);
 
 		addOrganisationToReturnFromStorage("organisation_parent0", "someDomain");
