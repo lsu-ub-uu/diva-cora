@@ -28,8 +28,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import se.uu.ub.cora.data.DataGroup;
-import se.uu.ub.cora.diva.fedora.DataGroupSpy;
-import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
+import se.uu.ub.cora.data.spies.DataGroupSpy;
+import se.uu.ub.cora.data.spies.DataRecordLinkSpy;
 
 public class DomainPartOrganisationCollectorTest {
 
@@ -140,9 +140,14 @@ public class DomainPartOrganisationCollectorTest {
 	}
 
 	private DataGroupSpy createParentOrganisationLink(String linkedRecordId) {
-		DataGroupSpy parentOrg = new DataGroupSpy("parentOrganisation");
-		DataGroupSpy organisationLink = new DataGroupSpy("organisationLink");
-		organisationLink.addChild(new DataAtomicSpy("linkedRecordId", linkedRecordId));
+		// DataGroupSpy parentOrg = new DataGroupSpy("parentOrganisation");
+		// DataGroupSpy organisationLink = new DataGroupSpy("organisationLink");
+		// organisationLink.addChild(new DataAtomicSpy("linkedRecordId", linkedRecordId));
+		// parentOrg.addChild(organisationLink);
+		DataGroupSpy parentOrg = new DataGroupSpy();
+		DataRecordLinkSpy organisationLink = new DataRecordLinkSpy();
+		organisationLink.MRV.setDefaultReturnValuesSupplier("getLinkedRecordId",
+				() -> linkedRecordId);
 		parentOrg.addChild(organisationLink);
 		return parentOrg;
 	}
