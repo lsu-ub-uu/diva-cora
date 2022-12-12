@@ -46,9 +46,9 @@
 		<storage.version>8.0.0</storage.version>
 		<metadatastorage.version>1.5.0</metadatastorage.version>
 		<searchstorage.version>3.19.0</searchstorage.version>
-		<basicstorage.version>7.7-SNAPSHOT</basicstorage.version>
+		<basicstorage.version>7.7.0</basicstorage.version>
 		<sqldatabase.version>7.0.0</sqldatabase.version>
-		<sqlstorage.version>2.8.0</sqlstorage.version>
+		<sqlstorage.version>2.9.0</sqlstorage.version>
 		<gatekeeper.version>4.3.0</gatekeeper.version>
 		<gatekeeperclient.version>4.6.0</gatekeeperclient.version>
 		<solrsearch.version>5.4.0</solrsearch.version>
