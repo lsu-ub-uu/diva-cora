@@ -1,39 +1,24 @@
-/// *
-// * Copyright 2020 Uppsala University Library
-// *
-// * This file is part of Cora.
-// *
-// * Cora is free software: you can redistribute it and/or modify
-// * it under the terms of the GNU General Public License as published by
-// * the Free Software Foundation, either version 3 of the License, or
-// * (at your option) any later version.
-// *
-// * Cora is distributed in the hope that it will be useful,
-// * but WITHOUT ANY WARRANTY; without even the implied warranty of
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// * GNU General Public License for more details.
-// *
-// * You should have received a copy of the GNU General Public License
-// * along with Cora. If not, see <http://www.gnu.org/licenses/>.
-// */
-// package se.uu.ub.cora.diva.extended.organisation;
+/// **Copyright 2020 Uppsala University Library**This file is part of Cora.**Cora is free
+/// software:you can redistribute it and/or modify*it under the terms of the GNU General Public
+/// License as published by*the Free Software Foundation,either version 3 of the License,or*(at your
+/// option)any later version.**Cora is distributed in the hope that it will be useful,*but WITHOUT
+/// ANY WARRANTY;without even the implied warranty of*MERCHANTABILITY or FITNESS FOR A PARTICULAR
+/// PURPOSE.See the*GNU General Public License for more details.**You should have received a copy of
+/// the GNU General Public License*along with Cora.If not,see<http://www.gnu.org/licenses/>.
+// */package se.uu.ub.cora.diva.extended.organisation;
 //
-// import static org.testng.Assert.assertEquals;
-// import static org.testng.Assert.assertSame;
+// import static org.testng.Assert.assertEquals;import static org.testng.Assert.assertSame;
 //
-// import java.util.ArrayList;
-// import java.util.List;
+// import java.util.ArrayList;import java.util.List;
 //
-// import org.testng.annotations.BeforeMethod;
-// import org.testng.annotations.Test;
+// import org.testng.annotations.BeforeMethod;import org.testng.annotations.Test;
 //
-// import se.uu.ub.cora.data.DataChild;
-// import se.uu.ub.cora.data.DataGroup;
-// import se.uu.ub.cora.diva.spies.data.DataAtomicSpy;
-// import se.uu.ub.cora.diva.spies.data.DataGroupExtendedSpy;
-// import se.uu.ub.cora.diva.spies.storage.RecordStorageSpy;
-// import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
-// import se.uu.ub.cora.spider.record.DataException;
+// import se.uu.ub.cora.data.DataChild;import se.uu.ub.cora.data.DataGroup;import
+/// se.uu.ub.cora.diva.spies.data.DataAtomicSpy;import
+/// se.uu.ub.cora.diva.spies.data.DataGroupExtendedSpy;import
+/// se.uu.ub.cora.diva.spies.storage.RecordStorageSpy;import
+/// se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;import
+/// se.uu.ub.cora.spider.record.DataException;
 //
 // public class OrganisationDifferentDomainDetectorTest {
 //
@@ -90,8 +75,7 @@
 // DataGroupExtendedSpy returnedParent = (DataGroupExtendedSpy) dataGroup.totalReturnedDataGroups
 // .get(1);
 // DataGroupExtendedSpy organisationLink = (DataGroupExtendedSpy)
-/// returnedParent.totalReturnedDataGroups
-// .get(0);
+// / returnedParent.totalReturnedDataGroups.get(0);
 // assertEquals(organisationLink.requestedAtomicNameInDatas.get(0), "linkedRecordId");
 // assertEquals(recordStorage.readRecordTypes.get(0), "organisation");
 // assertEquals(recordStorage.readRecordIds.get(0), "parent0");
@@ -181,11 +165,9 @@
 //
 // functionality.useExtendedFunctionality(createDefaultData(dataGroup));
 // DataGroupExtendedSpy returnedPredecessor = (DataGroupExtendedSpy)
-/// dataGroup.totalReturnedDataGroups
-// .get(1);
+// / dataGroup.totalReturnedDataGroups.get(1);
 // DataGroupExtendedSpy organisationLink = (DataGroupExtendedSpy)
-/// returnedPredecessor.totalReturnedDataGroups
-// .get(0);
+// / returnedPredecessor.totalReturnedDataGroups.get(0);
 // assertEquals(organisationLink.requestedAtomicNameInDatas.get(0), "linkedRecordId");
 // assertEquals(recordStorage.readRecordTypes.get(0), "organisation");
 // assertEquals(recordStorage.readRecordIds.get(0), "predecessor0");
@@ -217,16 +199,14 @@
 // .get(1);
 // assertCorrectOrganisationLink(returnedParent, "parent0", 0);
 // DataGroupExtendedSpy returnedPredecessor = (DataGroupExtendedSpy)
-/// dataGroup.totalReturnedDataGroups
-// .get(2);
+// / dataGroup.totalReturnedDataGroups.get(2);
 // assertCorrectOrganisationLink(returnedPredecessor, "predecessor0", 1);
 // }
 //
 // private void assertCorrectOrganisationLink(DataGroupExtendedSpy returnedParent, String recordId,
 // int indexInStorage) {
 // DataGroupExtendedSpy organisationLink = (DataGroupExtendedSpy)
-/// returnedParent.totalReturnedDataGroups
-// .get(0);
+// / returnedParent.totalReturnedDataGroups.get(0);
 // assertEquals(organisationLink.requestedAtomicNameInDatas.get(0), "linkedRecordId");
 // assertEquals(recordStorage.readRecordTypes.get(0), "organisation");
 // assertEquals(recordStorage.readRecordIds.get(indexInStorage), recordId);

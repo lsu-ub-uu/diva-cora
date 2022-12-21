@@ -19,32 +19,47 @@
 package se.uu.ub.cora.diva.extended.organisation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import se.uu.ub.cora.data.DataChild;
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.DataRecordLink;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
 
+/**
+ * OrganisationDuplicateLinksRemover removes duplicates from the existing parentOrganisations and
+ * earlierOrganisations.
+ * 
+ * @implNote This implementation is NOT threadsafe, make sure a new instance is returned for each
+ *           call.
+ */
 public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality {
+
+	private DataGroup dataGroup;
 
 	@Override
 	public void useExtendedFunctionality(ExtendedFunctionalityData data) {
-		handleChildrenInDataGroupUsingNameInData(data.dataGroup, "parentOrganisation");
-		handleChildrenInDataGroupUsingNameInData(data.dataGroup, "earlierOrganisation");
+		dataGroup = data.dataGroup;
+		removeDuplicateBasedOnLinkedOrganisation("parentOrganisation");
+		removeDuplicateBasedOnLinkedOrganisation("earlierOrganisation");
 	}
 
-	private void handleChildrenInDataGroupUsingNameInData(DataGroup dataGroup, String nameInData) {
+	private void removeDuplicateBasedOnLinkedOrganisation(String nameInData) {
 		if (dataGroup.containsChildWithNameInData(nameInData)) {
-			List<DataGroup> organisations = dataGroup.getAllGroupsWithNameInData(nameInData);
-			List<DataChild> elementsToKeep = calculateParentsToKeep(organisations);
+			removeDuplicatesFromLinkedOrganisationType(nameInData);
+		}
+	}
 
-			if (organisationListHasBeenReduced(organisations, elementsToKeep)) {
-				dataGroup.removeAllChildrenWithNameInData(nameInData);
-				dataGroup.addChildren(elementsToKeep);
-			}
+	private void removeDuplicatesFromLinkedOrganisationType(String nameInData) {
+		List<DataGroup> organisations = dataGroup.getAllGroupsWithNameInData(nameInData);
+		List<DataChild> elementsToKeep = calculateParentsToKeep(organisations);
+
+		if (organisationListHasBeenReduced(organisations, elementsToKeep)) {
+			dataGroup.removeAllChildrenWithNameInData(nameInData);
+			dataGroup.addChildren(elementsToKeep);
 		}
 	}
 
@@ -54,7 +69,7 @@ public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality 
 	}
 
 	private List<DataChild> calculateParentsToKeep(List<DataGroup> parentOrganisations) {
-		Map<String, DataChild> sortedParents = new HashMap<>();
+		Set<String> sortedParents = new HashSet<>();
 		List<DataChild> elementsToKeep = new ArrayList<>();
 		for (DataGroup parentGroup : parentOrganisations) {
 			calculateWhetherToKeepOrganisation(sortedParents, elementsToKeep, parentGroup);
@@ -62,19 +77,25 @@ public class OrganisationDuplicateLinksRemover implements ExtendedFunctionality 
 		return elementsToKeep;
 	}
 
-	private void calculateWhetherToKeepOrganisation(Map<String, DataChild> sortedParents,
+	private void calculateWhetherToKeepOrganisation(Set<String> sortedParents,
 			List<DataChild> elementsToKeep, DataGroup parentGroup) {
-		DataGroup parentLink = parentGroup.getFirstGroupWithNameInData("organisationLink");
-		String organisationId = parentLink.getFirstAtomicValueWithNameInData("linkedRecordId");
+		String organisationId = getLinkedOrganisationId(parentGroup);
+
 		if (organisationDoesNotAlreadyExist(sortedParents, organisationId)) {
 			elementsToKeep.add(parentGroup);
-			sortedParents.put(organisationId, parentGroup);
+			sortedParents.add(organisationId);
 		}
 	}
 
-	private boolean organisationDoesNotAlreadyExist(Map<String, DataChild> sortedParents,
+	private String getLinkedOrganisationId(DataGroup parentGroup) {
+		DataRecordLink parentLink = (DataRecordLink) parentGroup
+				.getFirstChildWithNameInData("organisationLink");
+		return parentLink.getLinkedRecordId();
+	}
+
+	private boolean organisationDoesNotAlreadyExist(Set<String> sortedParents,
 			String organisationId) {
-		return !sortedParents.containsKey(organisationId);
+		return !sortedParents.contains(organisationId);
 	}
 
 }
