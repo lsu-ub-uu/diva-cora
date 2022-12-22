@@ -18,11 +18,9 @@
  */
 package se.uu.ub.cora.diva.extended.organisation;
 
-import static se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityPosition.UPDATE_AFTER_STORE;
 import static se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityPosition.UPDATE_BEFORE_STORE;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import se.uu.ub.cora.spider.dependency.SpiderDependencyProvider;
@@ -30,26 +28,25 @@ import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityContext;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityFactory;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityPosition;
-import se.uu.ub.cora.storage.RecordStorage;
 
 public class DivaExtendedOrganisationFunctionalityFactory implements ExtendedFunctionalityFactory {
 
+	private static final int RUN_AS_NUMBER = 0;
 	private static final String TOP_ORGANISATION = "topOrganisation";
 	private static final String ROOT_ORGANISATION = "rootOrganisation";
 	private static final String SUB_ORGANISATION = "subOrganisation";
 	private List<ExtendedFunctionalityContext> contexts = new ArrayList<>();
 	private SpiderDependencyProvider dependencyProvider;
-	private String url;
-	private SqlDatabaseFactory databaseFactory;
+	// private SqlDatabaseFactory databaseFactory;
 
 	@Override
 	public void initializeUsingDependencyProvider(SpiderDependencyProvider dependencyProvider) {
 		this.dependencyProvider = dependencyProvider;
-		String databaseLookupNameValue = dependencyProvider
-				.getInitInfoValueUsingKey("databaseLookupName");
+		// String databaseLookupNameValue = dependencyProvider
+		// .getInitInfoValueUsingKey("databaseLookupName");
 
-		databaseFactory = SqlDatabaseFactoryImp.usingLookupNameFromContext(databaseLookupNameValue);
-		url = dependencyProvider.getInitInfoValueUsingKey("classicListUpdateURL");
+		// databaseFactory =
+		// SqlDatabaseFactoryImp.usingLookupNameFromContext(databaseLookupNameValue);
 		createListOfContexts();
 	}
 
@@ -60,8 +57,8 @@ public class DivaExtendedOrganisationFunctionalityFactory implements ExtendedFun
 	}
 
 	private void createContextForBeforeAndAfterUpdateUsingRecordType(String recordType) {
-		contexts.add(new ExtendedFunctionalityContext(UPDATE_BEFORE_STORE, recordType, 0));
-		contexts.add(new ExtendedFunctionalityContext(UPDATE_AFTER_STORE, recordType, 0));
+		contexts.add(
+				new ExtendedFunctionalityContext(UPDATE_BEFORE_STORE, recordType, RUN_AS_NUMBER));
 	}
 
 	@Override
@@ -72,55 +69,36 @@ public class DivaExtendedOrganisationFunctionalityFactory implements ExtendedFun
 	@Override
 	public List<ExtendedFunctionality> factor(ExtendedFunctionalityPosition position,
 			String recordType) {
-		if (UPDATE_BEFORE_STORE == position) {
-			return addFunctionalitiesForBeforeStoreForOrganisation();
-		}
-		// if (UPDATE_AFTER_STORE == position) {
-		// return addFunctionalityForAfterStoreForOrganisation();
+		// if (UPDATE_BEFORE_STORE == position) {
+		return addFunctionalitiesForBeforeStoreForOrganisation();
 		// }
-		return Collections.emptyList();
+		// return Collections.emptyList();
 	}
 
 	private List<ExtendedFunctionality> addFunctionalitiesForBeforeStoreForOrganisation() {
 		List<ExtendedFunctionality> functionalities = new ArrayList<>();
 		functionalities.add(new OrganisationDuplicateLinksRemover());
-		functionalities.add(addDisallowedDependencyDetector());
-		functionalities.add(addDifferentDomainDetector());
+		// functionalities.add(addDisallowedDependencyDetector());
+		// functionalities.add(addDifferentDomainDetector());
 		return functionalities;
 	}
 
-	private ExtendedFunctionality addDisallowedDependencyDetector() {
-		DatabaseFacade dbFacade = databaseFactory.factorDatabaseFacade();
-		return new OrganisationDisallowedDependencyDetector(dbFacade);
-	}
-
-	private ExtendedFunctionality addDifferentDomainDetector() {
-		RecordStorage recordStorage = dependencyProvider.getRecordStorage();
-		return new OrganisationDifferentDomainDetector(recordStorage);
-	}
-
-	// private List<ExtendedFunctionality> addFunctionalityForAfterStoreForOrganisation() {
-	// return createListAndAddFunctionality(createClassicReloader());
+	// private ExtendedFunctionality addDisallowedDependencyDetector() {
+	// DatabaseFacade dbFacade = databaseFactory.factorDatabaseFacade();
+	// return new OrganisationDisallowedDependencyDetector(dbFacade);
 	// }
 
-	// private ClassicOrganisationReloader createClassicReloader() {
-	// HttpHandlerFactory factory = new HttpHandlerFactoryImp();
-	// return ClassicOrganisationReloader.usingHttpHandlerFactoryAndUrl(factory, url);
+	// private ExtendedFunctionality addDifferentDomainDetector() {
+	// RecordStorage recordStorage = dependencyProvider.getRecordStorage();
+	// return new OrganisationDifferentDomainDetector(recordStorage);
 	// }
 
-	// private List<ExtendedFunctionality> createListAndAddFunctionality(
-	// ExtendedFunctionality extendedFunctionality) {
-	// List<ExtendedFunctionality> functionalities = new ArrayList<>();
-	// functionalities.add(extendedFunctionality);
-	// return functionalities;
+	// public SqlDatabaseFactory onlyForTestGetSqlDatabaseFactory() {
+	// return databaseFactory;
 	// }
-
-	public SqlDatabaseFactory onlyForTestGetSqlDatabaseFactory() {
-		return databaseFactory;
-	}
-
-	public void onlyForTestSetSqlDatabaseFactory(SqlDatabaseFactory databaseFactory) {
-		this.databaseFactory = databaseFactory;
-	}
+	//
+	// public void onlyForTestSetSqlDatabaseFactory(SqlDatabaseFactory databaseFactory) {
+	// this.databaseFactory = databaseFactory;
+	// }
 
 }
