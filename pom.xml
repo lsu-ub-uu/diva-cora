@@ -55,20 +55,20 @@
 		<metacreator.version>5.9-SNAPSHOT</metacreator.version>
 		<httphandler.version>2.10.0</httphandler.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
-		<fedoraarchive.version>1.9.0</fedoraarchive.version>  
+		<fedoraarchive.version>1.9.0</fedoraarchive.version>
 		<xmlconverter.version>2.8.0</xmlconverter.version>
 		<coradata-spies.version>1.5.0</coradata-spies.version>
 		<testutils.version>1.10.0</testutils.version>
-		
 		<search.version>5.5.0</search.version>
+		<contentanalyzer.version>1.0-SNAPSHOT</contentanalyzer.version>
 	</properties>
 
 	<scm>
 		<connection>scm:git:https://github.com/lsu-ub-uu/diva-cora.git</connection>
 		<developerConnection>scm:git:https://github.com/lsu-ub-uu/diva-cora.git</developerConnection>
 		<url>https://github.com/lsu-ub-uu/diva-cora.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<repositories>
 		<repository>
@@ -86,7 +86,7 @@
 	</repositories>
 
 	<dependencies>
-	<!-- test -->
+		<!-- test -->
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>log4j</artifactId>
@@ -103,7 +103,7 @@
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>json</artifactId>
 			<version>${json.version}</version>
-<!--			<scope>runtime</scope>-->
+			<!--			<scope>runtime</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
@@ -170,7 +170,7 @@
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>gatekeeper</artifactId>
 			<version>${gatekeeper.version}</version>
- 			<scope>runtime</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
@@ -207,7 +207,7 @@
 			<artifactId>fedoraarchive</artifactId>
 			<version>${fedoraarchive.version}</version>
 			<scope>runtime</scope>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>xmlconverter</artifactId>
@@ -230,12 +230,17 @@
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>search</artifactId>
 			<version>${search.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>contentanalyzer</artifactId>
+			<version>${contentanalyzer.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 </project>
