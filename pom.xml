@@ -38,12 +38,12 @@
 		<coralog4j.version>2.15.0</coralog4j.version>
 		<json.version>3.9.0</json.version>
 		<initialize.version>1.5.0</initialize.version>
-		<spider.version>8.1.0</spider.version>
-		<therest.version>9.11.0</therest.version>
+		<spider.version>8.2-SNAPSHOT</spider.version>
+		<therest.version>9.12-SNAPSHOT</therest.version>
 		<beefeater.version>3.13.0</beefeater.version>
 		<bookkeeper.version>9.2.0</bookkeeper.version>
 		<basicdata.version>5.6.0</basicdata.version>
-		<storage.version>9.0.0</storage.version>
+		<storage.version>9.1-SNAPSHOT</storage.version>
 		<metadatastorage.version>1.7.0</metadatastorage.version>
 		<searchstorage.version>3.21.0</searchstorage.version>
 		<basicstorage.version>7.9.0</basicstorage.version>
@@ -53,14 +53,16 @@
 		<gatekeeperclient.version>4.8.0</gatekeeperclient.version>
 		<solrsearch.version>5.6.0</solrsearch.version>
 		<metacreator.version>5.11.0</metacreator.version>
-		<httphandler.version>2.11.0</httphandler.version>
+		<httphandler.version>2.15.0</httphandler.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
-		<fedoraarchive.version>1.11.0</fedoraarchive.version>
+		<fedoraarchive.version>1.12-SNAPSHOT</fedoraarchive.version>  
 		<xmlconverter.version>2.9.0</xmlconverter.version>
 		<coradata-spies.version>1.6.0</coradata-spies.version>
 		<testutils.version>1.11.0</testutils.version>
 		<search.version>5.6.0</search.version>
-		<contentanalyzer.version>1.0.0</contentanalyzer.version>
+		<tikacontentanalyzer.version>1.0.0</tikacontentanalyzer.version>
+		<rabbitmq.version>3.0-SNAPSHOT</rabbitmq.version>
+
 	</properties>
 
 	<scm>
@@ -237,9 +239,21 @@
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
-			<artifactId>contentanalyzer</artifactId>
-			<version>${contentanalyzer.version}</version>
-			<scope>provided</scope>
+			<artifactId>tikacontentanalyzer</artifactId>
+			<version>${tikacontentanalyzer.version}</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> 
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>rabbitmq</artifactId>
+			<version>${rabbitmq.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>
