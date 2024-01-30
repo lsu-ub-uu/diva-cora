@@ -42,7 +42,7 @@
 		<therest.version>9.12-SNAPSHOT</therest.version>
 		<beefeater.version>3.13.0</beefeater.version>
 		<bookkeeper.version>9.2.0</bookkeeper.version>
-		<basicdata.version>5.6.0</basicdata.version>
+		<basicdata.version>5.7-SNAPSHOT</basicdata.version>
 		<storage.version>9.1-SNAPSHOT</storage.version>
 		<metadatastorage.version>1.7.0</metadatastorage.version>
 		<searchstorage.version>3.21.0</searchstorage.version>
@@ -56,8 +56,8 @@
 		<httphandler.version>2.15.0</httphandler.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
 		<fedoraarchive.version>1.12-SNAPSHOT</fedoraarchive.version>  
-		<xmlconverter.version>2.9.0</xmlconverter.version>
-		<coradata-spies.version>1.6.0</coradata-spies.version>
+		<xmlconverter.version>2.10-SNAPSHOT</xmlconverter.version>
+		<coradata-spies.version>1.7-SNAPSHOT</coradata-spies.version>
 		<testutils.version>1.11.0</testutils.version>
 		<search.version>5.6.0</search.version>
 		<tikacontentanalyzer.version>1.0.0</tikacontentanalyzer.version>
