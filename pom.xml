@@ -52,15 +52,15 @@
 		<gatekeeper.version>4.5.0</gatekeeper.version>
 		<gatekeeperclient.version>4.8.0</gatekeeperclient.version>
 		<solrsearch.version>5.6.0</solrsearch.version>
-		<metacreator.version>5.11.0</metacreator.version>
+		<metacreator.version>5.12-SNAPSHOT</metacreator.version>
 		<httphandler.version>2.15.0</httphandler.version>
 		<servlet-api.version>5.0.0</servlet-api.version>
 		<fedoraarchive.version>1.12-SNAPSHOT</fedoraarchive.version>  
-		<xmlconverter.version>2.10-SNAPSHOT</xmlconverter.version>
+		<tikacontentanalyzer.version>1.0.0</tikacontentanalyzer.version>  
+		<xmlconverter.version>3.0-SNAPSHOT</xmlconverter.version>
 		<coradata-spies.version>1.7-SNAPSHOT</coradata-spies.version>
 		<testutils.version>1.11.0</testutils.version>
 		<search.version>5.6.0</search.version>
-		<tikacontentanalyzer.version>1.0.0</tikacontentanalyzer.version>
 		<rabbitmq.version>3.0-SNAPSHOT</rabbitmq.version>
 
 	</properties>
