@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>2.5.0</version>
+		<version>2.6.0</version>
 	</parent>
 
 	<artifactId>diva</artifactId>
@@ -38,7 +38,7 @@
 		<coralog4j.version>2.16.0</coralog4j.version>
 		<json.version>3.10.0</json.version>
 		<initialize.version>1.6.0</initialize.version>
-		<spider.version>8.5-SNAPSHOT</spider.version>
+		<spider.version>8.5.0</spider.version>
 		<therest.version>10.1.0</therest.version>
 		<beefeater.version>3.13.0</beefeater.version>
 		<bookkeeper.version>9.4.0</bookkeeper.version>
@@ -49,7 +49,7 @@
 		<basicstorage.version>7.11.0</basicstorage.version>
 		<sqldatabase.version>7.3.0</sqldatabase.version>
 		<sqlstorage.version>2.13.0</sqlstorage.version>
-		<gatekeeper.version>4.6.0</gatekeeper.version>
+		<gatekeeper.version>4.7.0</gatekeeper.version>
 		<gatekeeperclient.version>4.9.0</gatekeeperclient.version>
 		<solrsearch.version>5.7.0</solrsearch.version>
 		<metacreator.version>5.14.0</metacreator.version>
