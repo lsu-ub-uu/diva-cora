@@ -18,21 +18,22 @@
  */
 package se.uu.ub.cora.diva.spies.spider;
 
-import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.DataRecord;
+import se.uu.ub.cora.data.DataRecordGroup;
 import se.uu.ub.cora.spider.record.RecordCreator;
 
 public class SpiderRecordCreatorSpy implements RecordCreator {
 
 	public String authToken;
 	public String type;
-	public DataGroup record;
+	public DataRecordGroup record;
 
 	@Override
-	public DataRecord createAndStoreRecord(String authToken, String type, DataGroup record) {
+	public DataRecord createAndStoreRecord(String authToken, String type,
+			DataRecordGroup recordGroup) {
 		this.authToken = authToken;
 		this.type = type;
-		this.record = record;
+		this.record = recordGroup;
 		return null;
 	}
 
