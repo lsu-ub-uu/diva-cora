@@ -49,7 +49,7 @@
 		<basicstorage.version>7.13.0</basicstorage.version>
 		<sqldatabase.version>7.3.0</sqldatabase.version>
 		<sqlstorage.version>2.14.0</sqlstorage.version>
-		<gatekeeper.version>4.7.0</gatekeeper.version>
+		<gatekeeper.version>5.0.0</gatekeeper.version>
 		<gatekeeperclient.version>4.9.0</gatekeeperclient.version>
 		<solrsearch.version>6.0.0</solrsearch.version>
 		<metacreator.version>5.15.0</metacreator.version>
