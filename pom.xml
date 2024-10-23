@@ -38,15 +38,15 @@
 		<coralog4j.version>2.16.0</coralog4j.version>
 		<json.version>3.10.0</json.version>
 		<initialize.version>1.6.0</initialize.version>
-		<spider.version>9.0.0</spider.version>
+		<spider.version>9.1.0</spider.version>
 		<therest.version>11.1.0</therest.version>
 		<beefeater.version>3.13.0</beefeater.version>
-		<bookkeeper.version>10.0.0</bookkeeper.version>
+		<bookkeeper.version>10.1.0</bookkeeper.version>
 		<basicdata.version>6.0.0</basicdata.version>
-		<storage.version>9.3.0</storage.version>
+		<storage.version>9.5.0</storage.version>
 		<metadatastorage.version>1.9.0</metadatastorage.version>
 		<searchstorage.version>3.22.0</searchstorage.version>
-		<basicstorage.version>7.13.0</basicstorage.version>
+		<basicstorage.version>7.14.0</basicstorage.version>
 		<sqldatabase.version>7.3.0</sqldatabase.version>
 		<sqlstorage.version>2.14.0</sqlstorage.version>
 		<gatekeeper.version>5.0.0</gatekeeper.version>
@@ -55,7 +55,7 @@
 		<metacreator.version>5.15.0</metacreator.version>
 		<httphandler.version>2.16.0</httphandler.version>
 		<servlet-api.version>6.1.0</servlet-api.version>
-		<fedoraarchive.version>1.14.0</fedoraarchive.version>
+		<fedoraarchive.version>1.15.0</fedoraarchive.version>
 		<fedora.version>4.2.0</fedora.version> 
 		<tikacontentanalyzer.version>1.1.0</tikacontentanalyzer.version>  
 		<xmlconverter.version>3.1.0</xmlconverter.version>
