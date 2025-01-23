@@ -18,6 +18,7 @@ public class UrnExtendedFunctionalityTest {
 	private static final String URN = "urn:nbn";
 	private static final String RECORD_INFO = "recordInfo";
 	private static final String SOME_ID = "someId";
+	private static final String RECORD_CONTENT_SOURCE = "recordContentSource";
 	private DataRecordGroupSpy someRecord;
 	private DataGroupSpy recordInfoGroup;
 	private ExtendedFunctionalityData extendedFunctionalityData;
@@ -94,6 +95,8 @@ public class UrnExtendedFunctionalityTest {
 
 		someRecord.MCR.assertParameters("containsChildWithNameInData", 0, RECORD_INFO);
 		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 0, ID);
+		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 1,
+				RECORD_CONTENT_SOURCE);
 
 		recordInfoGroup.MCR.assertMethodWasCalled("addChild");
 	}
