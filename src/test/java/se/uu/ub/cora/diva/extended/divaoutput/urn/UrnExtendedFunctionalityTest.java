@@ -1,3 +1,22 @@
+/*
+ * Copyright 2025 Uppsala University Library
+ *
+ * This file is part of Cora.
+ *
+ *     Cora is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     Cora is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package se.uu.ub.cora.diva.extended.divaoutput.urn;
 
 import static org.testng.Assert.assertTrue;
@@ -14,10 +33,7 @@ import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
 
 public class UrnExtendedFunctionalityTest {
 
-	private static final String ID = "id";
-	private static final String URN = "urn:nbn";
 	private static final String RECORD_INFO = "recordInfo";
-	private static final String SOME_ID = "someId";
 	private static final String RECORD_CONTENT_SOURCE = "recordContentSource";
 	private DataRecordGroupSpy someRecord;
 	private DataGroupSpy recordInfoGroup;
@@ -48,57 +64,14 @@ public class UrnExtendedFunctionalityTest {
 	}
 
 	@Test
-	public void testRecordInfoIsNull() throws Exception {
-		extendedFunctionalityData.dataRecordGroup = null;
-
-		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
-		someRecord.MCR.assertMethodNotCalled("getFirstGroupWithNameInData");
-	}
-
-	@Test
-	public void testRecordInfoDoesNotExist() throws Exception {
-		someRecord.MRV.setDefaultReturnValuesSupplier("containsChildWithNameInData", () -> false);
-
+	public void testDivaUrnNumberIsAdded() throws Exception {
 		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
 
-		someRecord.MCR.assertParameters("containsChildWithNameInData", 0, RECORD_INFO);
-		someRecord.MCR.assertMethodNotCalled("getFirstGroupWithNameInData");
-	}
-
-	@Test
-	public void testUrnNumberAlreadyExist() throws Exception {
-		someRecord.MRV.setDefaultReturnValuesSupplier("containsChildWithNameInData", () -> true);
-		recordInfoGroup.MRV.setSpecificReturnValuesSupplier("containsChildWithNameInData",
-				() -> true, URN);
-
-		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
-
-		someRecord.MCR.assertParameters("containsChildWithNameInData", 0, RECORD_INFO);
-
-		recordInfoGroup.MCR.assertMethodWasCalled("removeFirstChildWithNameInData");
-		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 0, ID);
-
-		recordInfoGroup.MCR.assertMethodWasCalled("addChild");
-
-	}
-
-	@Test
-	public void testAlvinUrnNumberIsAdded() throws Exception {
-		someRecord.MRV.setDefaultReturnValuesSupplier("containsChildWithNameInData", () -> true);
-
-		recordInfoGroup.MRV.setSpecificReturnValuesSupplier("containsChildWithNameInData",
-				() -> false, URN);
-		recordInfoGroup.MRV.setSpecificReturnValuesSupplier("getFirstAtomicValueWithNameInData",
-				() -> SOME_ID, ID);
-
-		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
-
-		someRecord.MCR.assertParameters("containsChildWithNameInData", 0, RECORD_INFO);
-		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 0, ID);
-		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 1,
+		someRecord.MCR.assertParameters("getFirstGroupWithNameInData", 0, RECORD_INFO);
+		someRecord.MCR.assertMethodWasCalled("getId");
+		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 0,
 				RECORD_CONTENT_SOURCE);
 
 		recordInfoGroup.MCR.assertMethodWasCalled("addChild");
 	}
-
 }
