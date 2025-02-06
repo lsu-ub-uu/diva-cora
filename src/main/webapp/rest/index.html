@@ -1,0 +1,1142 @@
+<!--
+  ~ Copyright 2015, 2021 Uppsala University Library
+  ~
+  ~ This file is part of Cora.
+  ~
+  ~     Cora is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     Cora is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cora Record API Documentation</title>
+<link rel="stylesheet" href="api.css">
+<script>
+	function showEnglish() {
+		document.getElementById('english').style.display = 'block';
+		document.getElementById('swedish').style.display = 'none';
+		document.querySelector('#sidebar .english-nav').style.display = 'block';
+		document.querySelector('#sidebar .swedish-nav').style.display = 'none';
+		document.body.classList.remove('swedish-bg');
+		document.body.classList.add('english-bg');
+	}
+	function showSwedish() {
+		document.getElementById('english').style.display = 'none';
+		document.getElementById('swedish').style.display = 'block';
+		document.querySelector('#sidebar .english-nav').style.display = 'none';
+		document.querySelector('#sidebar .swedish-nav').style.display = 'block';
+		document.body.classList.remove('english-bg');
+		document.body.classList.add('swedish-bg');
+	}
+</script>
+</head>
+<body onload="showEnglish()">
+	<div id="langButtons">
+		<button class="english" onclick="showEnglish()">English</button>
+		<button class="swedish" onclick="showSwedish()">Svenska</button>
+	</div>
+
+	<!-- Left Sidebar Navigation -->
+	<nav id="sidebar">
+		<ul class="english-nav">
+			<li><a href="#description">Description</a></li>
+			<li><a href="#create-record">1. Create Record</a></li>
+			<li><a href="#read-record-list">2. Read Record List</a></li>
+			<li><a href="#read-single-record">3. Read Single Record</a></li>
+			<li><a href="#read-incoming-record-links">4. Read Incoming Record Links</a></li>
+			<li><a href="#delete-record">5. Delete Record</a></li>
+			<li><a href="#update-record">6. Update Record</a></li>
+			<li><a href="#download-resource">7. Download Resource</a></li>
+			<li><a href="#upload-resource">8. Upload Resource</a></li>
+			<li><a href="#search-record">9. Search Record</a></li>
+			<li><a href="#validate-record">10. Validate Record</a></li>
+			<li><a href="#batch-index-records">11. Batch Index Records</a></li>
+			<li><a href="#record-type-listing">Record Type Listing</a></li>
+			<li><a href="#getting-started">Getting Started</a></li>
+		</ul>
+		<ul class="swedish-nav" style="display: none;">
+			<li><a href="#beskrivning">Beskrivning</a></li>
+			<li><a href="#skapa-post">1. Skapa Post</a></li>
+			<li><a href="#las-postlista">2. Läs Postlista</a></li>
+			<li><a href="#las-enstaka-post">3. Läs Enstaka Post</a></li>
+			<li><a href="#las-inkommande-postlankar">4. Läs Inkommande Postlänkar</a></li>
+			<li><a href="#ta-bort-post">5. Ta Bort Post</a></li>
+			<li><a href="#uppdatera-post">6. Uppdatera Post</a></li>
+			<li><a href="#ladda-ned-resurs">7. Ladda Ned Resurs</a></li>
+			<li><a href="#ladda-upp-resurs">8. Ladda Upp Resurs</a></li>
+			<li><a href="#sok-post">9. Sök Post</a></li>
+			<li><a href="#validera-post">10. Validera Post</a></li>
+			<li><a href="#batchindexering">11. Batchindexering</a></li>
+			<li><a href="#kom-igang">Kom igång</a></li>
+		</ul>
+	</nav>
+
+	<!-- Main Content Container -->
+	<div id="main-content">
+		<!-- English Content -->
+		<div id="english">
+			<header>
+				<h1>Cora Record API Documentation</h1>
+				<p>
+					This document describes the REST API endpoints exposed by the
+					<code>RecordEndpoint</code>
+					class. The API supports operations for creating, reading, updating, deleting, validating,
+					indexing records, and uploading/downloading resources. Although the API supports both XML and
+					JSON, XML examples are used throughout this documentation.
+				</p>
+			</header>
+
+			<section id="description">
+				<h2>Base URL</h2>
+				<p>The base URL is derived from the incoming HTTP request and internal settings. For
+					example, if your server is hosted at:</p>
+				<pre>http://&lt;host&gt;:&lt;port&gt;/&lt;context&gt;/</pre>
+				<p>then the effective base URL for record endpoints becomes:</p>
+				<pre>{baseUrl}/record/</pre>
+				<p>
+					Similarly, the IIIF URL is built using a setting (e.g.,
+					<code>iiifPublicPathToSystem</code>
+					). If the request includes an
+					<code>X-Forwarded-Proto</code>
+					header, the protocol is adjusted (e.g., from HTTP to HTTPS).
+				</p>
+			</section>
+
+			<section id="authentication">
+				<h2>Authentication</h2>
+				<p>All endpoints require an authentication token provided either as a header or query
+					parameter:</p>
+				<ul>
+					<li><strong>Header:</strong> <code>authToken</code></li>
+					<li><strong>Query:</strong> <code>authToken</code></li>
+				</ul>
+				<p>If both are provided, the header token is used. (If you run without an authToken, you
+					will be treated as GUEST.)</p>
+			</section>
+
+			<section id="supported-media">
+				<h2>Supported Media Types (General)</h2>
+				<ul>
+					<li><strong>Records:</strong> XML: <code>application/vnd.uub.record+xml</code>; JSON: <code>application/vnd.uub.record+json</code>
+					</li>
+					<li><strong>Record Lists:</strong> XML: <code>application/vnd.uub.recordList+xml</code>;
+						JSON: <code>application/vnd.uub.recordList+json</code>; Browser-friendly: <code>application/xml;
+							qs=0.1</code></li>
+					<li><strong>Work Orders (for Validation):</strong> XML: <code>application/vnd.uub.workorder+xml</code>;
+						JSON: <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>File Uploads:</strong> <code>multipart/form-data</code></li>
+					<li><strong>Error Responses:</strong> <code>text/plain; charset=utf-8</code></li>
+				</ul>
+			</section>
+
+			<!-- 1. Create Record -->
+			<div class="endpoint" id="create-record">
+				<h2>1. Create Record</h2>
+				<h3>Description</h3>
+				<p>Creates a new record of a given type. The record is sent as a top-level XML data group.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameter:</strong> <code>type</code> (string) – The type of record to
+						create.</li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+					<li><strong>Request Body:</strong> An XML document representing the record.</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Request Example (XML)</h3>
+				<pre>&lt;record&gt;
+  &lt;recordinfo&gt;
+    &lt;id&gt;123&lt;/id&gt;
+    &lt;type&gt;{type}&lt;/type&gt;
+  &lt;/recordinfo&gt;
+  &lt;title&gt;Example Record&lt;/title&gt;
+  &lt;variable1&gt;Value1&lt;/variable1&gt;
+  &lt;variable2&gt;Value2&lt;/variable2&gt;
+  &lt;variable3&gt;Value3&lt;/variable3&gt;
+&lt;/record&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>201 Created</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Location:</strong> URI of the newly created record (e.g. <code>{baseUrl}/record/{type}/{id}</code>)</li>
+							<li><strong>Content-Type:</strong> <code>application/vnd.uub.record+xml</code></li>
+						</ul>
+					</li>
+					<li>Body: The created record in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages returned in
+					plain text.</p>
+			</div>
+
+			<!-- 2. Read Record List -->
+			<div class="endpoint" id="read-record-list">
+				<h2>2. Read Record List</h2>
+				<h3>Description</h3>
+				<p>Retrieves a list of complete records for a given type. If no filter is provided, a
+					default empty filter is used.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameter:</strong> <code>type</code> (string) – The record type.</li>
+					<li><strong>Query Parameter:</strong> <code>filter</code> (string, optional) – An XML
+						string representing filter criteria.
+						<p>If omitted, a default filter is used:</p> <pre>&lt;filter&gt;&lt;/filter&gt;</pre></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: A list of complete records in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 3. Read Single Record -->
+			<div class="endpoint" id="read-single-record">
+				<h2>3. Read Single Record</h2>
+				<h3>Description</h3>
+				<p>Retrieves a specific record by its type and identifier.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: The requested record in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 4. Read Incoming Record Links -->
+			<div class="endpoint" id="read-incoming-record-links">
+				<h2>4. Read Incoming Record Links</h2>
+				<h3>Description</h3>
+				<p>Fetches a list of incoming record links for the specified record. Each link shows a
+					record that references the target record.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}/incomingLinks</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: A list of incoming record links in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 5. Delete Record -->
+			<div class="endpoint" id="delete-record">
+				<h2>5. Delete Record</h2>
+				<h3>Description</h3>
+				<p>Deletes a specific record.</p>
+				<h3>Endpoint</h3>
+				<pre>DELETE {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>text/plain; charset=utf-8</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: No response body.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 6. Update Record -->
+			<div class="endpoint" id="update-record">
+				<h2>6. Update Record</h2>
+				<h3>Description</h3>
+				<p>Updates an existing record.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+					<li><strong>Request Body:</strong> An XML document representing the updated record.</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Example Request (XML)</h3>
+				<pre>&lt;record&gt;
+  &lt;recordinfo&gt;
+    &lt;id&gt;123&lt;/id&gt;
+    &lt;type&gt;{type}&lt;/type&gt;
+  &lt;/recordinfo&gt;
+  &lt;title&gt;Updated Record&lt;/title&gt;
+  &lt;variable1&gt;NewValue1&lt;/variable1&gt;
+  &lt;variable2&gt;NewValue2&lt;/variable2&gt;
+  &lt;variable3&gt;NewValue3&lt;/variable3&gt;
+&lt;/record&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: The updated record in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 7. Download Resource -->
+			<div class="endpoint" id="download-resource">
+				<h2>7. Download Resource</h2>
+				<h3>Description</h3>
+				<p>Downloads a resource file that is attached to a record.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}/{resourceType}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+							<li><code>resourceType</code> (string) – The type of resource to download.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> Binary stream (MIME type depends on the resource, e.g. <code>application/octet-stream</code>)</li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Content-Disposition:</strong> Attachment with filename</li>
+							<li><strong>Content-Length:</strong> File size</li>
+							<li><strong>Content-Type:</strong> MIME type (e.g. <code>application/octet-stream</code>)</li>
+						</ul>
+					</li>
+					<li>Body: The binary file stream.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 8. Upload Resource -->
+			<div class="endpoint" id="upload-resource">
+				<h2>8. Upload Resource</h2>
+				<h3>Description</h3>
+				<p>Uploads a resource (file) and associates it with a record.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}/{id}/{resourceType}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameters:</strong>
+						<ul>
+							<li><code>type</code> (string) – The record type.</li>
+							<li><code>id</code> (string) – The record identifier.</li>
+							<li><code>resourceType</code> (string) – The type of resource to upload.</li>
+						</ul></li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+					<li><strong>Request Body:</strong> <code>multipart/form-data</code> with a file field
+						named <code>file</code></li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>multipart/form-data</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: The updated record (including the new resource) in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 9. Search Record -->
+			<div class="endpoint" id="search-record">
+				<h2>9. Search Record</h2>
+				<h3>Description</h3>
+				<p>Searches for records based on criteria passed in the request.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/searchResult/{searchId}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameter:</strong> <code>searchId</code> (string) – An identifier for
+						the search.</li>
+					<li><strong>Query Parameter:</strong> <code>searchData</code> (string) – An XML string
+						containing search criteria.</li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: A list of records matching the search criteria in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 10. Validate Record -->
+			<div class="endpoint" id="validate-record">
+				<h2>10. Validate Record</h2>
+				<h3>Description</h3>
+				<p>Validates a record using a work order format. The work order includes two parts:</p>
+				<ul>
+					<li><code>order</code> – The validation parameters.</li>
+					<li><code>record</code> – The record data to be validated.</li>
+				</ul>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameter:</strong> <code>type</code> (string) – The record type to
+						validate (internally mapped to a validation order type).</li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+					<li><strong>Request Body:</strong> An XML document containing the work order.</li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.workorder+xml</code>, <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Example Request (XML)</h3>
+				<pre>&lt;workOrder&gt;
+  &lt;order&gt;
+    &lt;parameter name="validate"&gt;true&lt;/parameter&gt;
+  &lt;/order&gt;
+  &lt;record&gt;
+    &lt;recordinfo&gt;
+      &lt;id&gt;123&lt;/id&gt;
+      &lt;type&gt;{type}&lt;/type&gt;
+    &lt;/recordinfo&gt;
+    &lt;title&gt;Record to Validate&lt;/title&gt;
+    &lt;variable1&gt;Value1&lt;/variable1&gt;
+    &lt;variable2&gt;Value2&lt;/variable2&gt;
+    &lt;variable3&gt;Value3&lt;/variable3&gt;
+  &lt;/record&gt;
+&lt;/workOrder&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: The result of the validation as an XML record.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- 11. Batch Index Records -->
+			<div class="endpoint" id="batch-index-records">
+				<h2>11. Batch Index Records</h2>
+				<h3>Description</h3>
+				<p>Starts a batch indexing job for all records of a given type. Optional index settings can
+					be provided; if none are supplied, a default empty settings object is used.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/index/{type}</pre>
+				<h3>Parameters</h3>
+				<ul>
+					<li><strong>Path Parameter:</strong> <code>type</code> (string) – The type of records to
+						index.</li>
+					<li><strong>Authentication:</strong> <code>authToken</code> (Header or Query Parameter)</li>
+					<li><strong>Request Body:</strong> An XML document containing index settings. If omitted,
+						a default is used: <pre>&lt;indexSettings&gt;&lt;/indexSettings&gt;</pre></li>
+				</ul>
+				<h3>Supported Media Types</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>201 Created</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Location:</strong> URI for the created batch job (e.g. <code>{baseUrl}/record/indexBatchJob/{id}</code>)</li>
+						</ul>
+					</li>
+					<li>Body: The batch job record in XML format.</li>
+				</ul>
+				<h3>Error Handling</h3>
+				<p>Possible errors include 400, 401, 403, 404, 409, or 500, with error messages in plain
+					text.</p>
+			</div>
+
+			<!-- Getting Started -->
+			<section id="getting-started">
+				<h2>Getting Started</h2>
+				<p>This section provides a step-by-step workflow to help you quickly start using the API.</p>
+				<h3>Using Guest Mode</h3>
+				<p>
+					If you do not provide an
+					<code>authToken</code>
+					, the API runs in GUEST mode. For example:
+				</p>
+				<pre>GET {baseUrl}/record/person/</pre>
+				<p>This returns data accessible to a guest user.</p>
+				<h3>List All Record Types</h3>
+				<p>To see which record types are available, call the Record Type Listing endpoint:</p>
+				<pre>GET {baseUrl}/recordType</pre>
+				<p>The response might include types such as "person", "publication", "resource", etc.</p>
+				<h3>Search for a Record Type</h3>
+				<p>Use the Search Record endpoint with appropriate search criteria. For example, to search
+					for records of type "person":</p>
+				<pre>GET {baseUrl}/searchResult/search</pre>
+				<p>With the following search data:</p>
+				<pre>&lt;search&gt;
+  &lt;criteria&gt;person&lt;/criteria&gt;
+&lt;/search&gt;</pre>
+				<p>This returns records matching the criteria.</p>
+				<h3>Read a Record</h3>
+				<p>After identifying a record from the search results, retrieve its complete details using
+					the Read Single Record endpoint. For example:</p>
+				<pre>GET {baseUrl}/record/person/123</pre>
+				<p>This returns the complete data for the record with id 123 of type "person".</p>
+			</section>
+
+			<section id="common-errors">
+				<h2>Common Error Responses</h2>
+				<ul>
+					<li><strong>400 Bad Request:</strong> Input is malformed or conversion errors occurred.</li>
+					<li><strong>401 Unauthorized:</strong> Authentication token is missing or invalid.</li>
+					<li><strong>403 Forbidden:</strong> The authenticated user does not have the necessary
+						permissions.</li>
+					<li><strong>404 Not Found:</strong> The requested record or resource does not exist.</li>
+					<li><strong>409 Conflict:</strong> Conflicts due to record state or duplicate entries.</li>
+					<li><strong>500 Internal Server Error:</strong> An unexpected error occurred.</li>
+				</ul>
+			</section>
+
+			<section id="notes">
+				<h2>Notes</h2>
+				<ul>
+					<li><strong>Content Negotiation:</strong> The API uses the <code>Content-Type</code>
+						header to determine the request format and the <code>Accept</code> header for the response
+						format. Although both XML and JSON are supported, XML examples are provided here.</li>
+					<li><strong>Error Handling:</strong> Errors are mapped to appropriate HTTP status codes
+						with plain text error messages.</li>
+					<li><strong>File Uploads/Downloads:</strong> The API streams binary data for file
+						operations and includes headers for file metadata.</li>
+					<li><strong>Returned Data Variability:</strong> The returned data may vary depending on
+						the active user. In many cases, endpoints for fetching data (such as reading records) can be
+						accessed without an authentication token, though authentication may change the data returned.
+					</li>
+				</ul>
+			</section>
+
+			<footer>
+				<p>&copy; 2025 Cora Record API Documentation</p>
+			</footer>
+		</div>
+
+		<!-- Swedish Content -->
+		<div id="swedish" style="display: none;">
+			<header id="bas-url">
+				<h1>Cora Record API Dokumentation</h1>
+				<p>
+					Detta dokument beskriver REST API-endpoints som exponeras av klassen
+					<code>RecordEndpoint</code>
+					. API:et stöder operationer för att skapa, läsa, uppdatera, radera, validera, indexera poster
+					samt ladda upp/ned filer. Även om API:et stöder både XML och JSON används XML-exempel
+					genomgående i denna dokumentation.
+				</p>
+			</header>
+			<section id="beskrivning">
+				<h2>Bas-URL</h2>
+				<p>Bas-URL:en härleds från den inkommande HTTP-begäran och interna inställningar. Till
+					exempel, om din server är värd på:</p>
+				<pre>http://&lt;host&gt;:&lt;port&gt;/&lt;context&gt;/</pre>
+				<p>blir den effektiva bas-URL:en för postendpunkter:</p>
+				<pre>{baseUrl}/record/</pre>
+				<p>
+					På samma sätt byggs IIIF-URL:en med en inställning (t.ex.
+					<code>iiifPublicPathToSystem</code>
+					). Om begäran innehåller en
+					<code>X-Forwarded-Proto</code>
+					-header justeras protokollet (t.ex. från HTTP till HTTPS).
+				</p>
+			</section>
+
+			<section id="autentisering">
+				<h2>Autentisering</h2>
+				<p>Alla endpoints kräver ett autentiseringstoken som skickas antingen som header eller
+					query-parameter:</p>
+				<ul>
+					<li><strong>Header:</strong> <code>authToken</code></li>
+					<li><strong>Query:</strong> <code>authToken</code></li>
+				</ul>
+				<p>Om båda anges används header-token. (Om du inte skickar med ett token behandlas du som
+					GÄST.)</p>
+			</section>
+
+			<section id="stodda-medier">
+				<h2>Stödda Mediatyper (Generellt)</h2>
+				<ul>
+					<li><strong>Poster:</strong> XML: <code>application/vnd.uub.record+xml</code>; JSON: <code>application/vnd.uub.record+json</code>
+					</li>
+					<li><strong>Postlistor:</strong> XML: <code>application/vnd.uub.recordList+xml</code>;
+						JSON: <code>application/vnd.uub.recordList+json</code>; Webbläsarvänligt: <code>application/xml;
+							qs=0.1</code></li>
+					<li><strong>Arbetsordrar (för validering):</strong> XML: <code>application/vnd.uub.workorder+xml</code>;
+						JSON: <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>Filuppladdning:</strong> <code>multipart/form-data</code></li>
+					<li><strong>Felmeddelanden:</strong> <code>text/plain; charset=utf-8</code></li>
+				</ul>
+			</section>
+
+			<!-- Swedish Endpoints -->
+			<!-- 1. Skapa Post -->
+			<div class="endpoint" id="skapa-post">
+				<h2>1. Skapa Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Skapar en ny post av en given typ. Posten skickas som en XML-datagruppering.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parameter:</strong> <code>type</code> (sträng) – Den posttyp som ska
+						skapas.</li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+					<li><strong>Request Body:</strong> Ett XML-dokument som representerar posten.</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Exempel på Request (XML)</h3>
+				<pre>&lt;record&gt;
+  &lt;recordinfo&gt;
+    &lt;id&gt;123&lt;/id&gt;
+    &lt;type&gt;{type}&lt;/type&gt;
+  &lt;/recordinfo&gt;
+  &lt;title&gt;Exempelpost&lt;/title&gt;
+  &lt;variable1&gt;Värde1&lt;/variable1&gt;
+  &lt;variable2&gt;Värde2&lt;/variable2&gt;
+  &lt;variable3&gt;Värde3&lt;/variable3&gt;
+&lt;/record&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>201 Created</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Location:</strong> URI till den nyskapade posten (t.ex. <code>{baseUrl}/record/{type}/{id}</code>)</li>
+							<li><strong>Content-Type:</strong> <code>application/vnd.uub.record+xml</code></li>
+						</ul>
+					</li>
+					<li>Body: Den skapade posten i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 2. Läs Postlista -->
+			<div class="endpoint" id="las-postlista">
+				<h2>2. Läs Postlista</h2>
+				<h3>Beskrivning</h3>
+				<p>Hämtar en lista med kompletta poster för en given typ. Om inget filter anges används ett
+					standardtomt filter.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parameter:</strong> <code>type</code> (sträng) – Den posttyp som ska
+						hämtas.</li>
+					<li><strong>Query-parameter:</strong> <code>filter</code> (sträng, valfritt) – En
+						XML-sträng som representerar filterkriterier.
+						<p>Om inget anges används:</p> <pre>&lt;filter&gt;&lt;/filter&gt;</pre></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: En lista med kompletta poster i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 3. Läs Enstaka Post -->
+			<div class="endpoint" id="las-enstaka-post">
+				<h2>3. Läs Enstaka Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Hämtar en specifik post baserat på posttyp och id.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska hämtas.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: Den efterfrågade posten i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 4. Läs Inkommande Postlänkar -->
+			<div class="endpoint" id="las-inkommande-postlankar">
+				<h2>4. Läs Inkommande Postlänkar</h2>
+				<h3>Beskrivning</h3>
+				<p>Hämtar en lista med inkommande postlänkar för den angivna posten. Varje länk visar en
+					post som refererar till den aktuella.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}/incomingLinks</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska hämtas.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: En lista med inkommande postlänkar i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 5. Ta Bort Post -->
+			<div class="endpoint" id="ta-bort-post">
+				<h2>5. Ta Bort Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Tar bort en specifik post.</p>
+				<h3>Endpoint</h3>
+				<pre>DELETE {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska tas bort.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>text/plain; charset=utf-8</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: Inget svarsinnehåll.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 6. Uppdatera Post -->
+			<div class="endpoint" id="uppdatera-post">
+				<h2>6. Uppdatera Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Uppdaterar en befintlig post.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}/{id}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska uppdateras.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+					<li><strong>Request Body:</strong> Ett XML-dokument som representerar den uppdaterade
+						posten.</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Exempel på Request (XML)</h3>
+				<pre>&lt;record&gt;
+  &lt;recordinfo&gt;
+    &lt;id&gt;123&lt;/id&gt;
+    &lt;type&gt;{type}&lt;/type&gt;
+  &lt;/recordinfo&gt;
+  &lt;title&gt;Uppdaterad Post&lt;/title&gt;
+  &lt;variable1&gt;NyttVärde1&lt;/variable1&gt;
+  &lt;variable2&gt;NyttVärde2&lt;/variable2&gt;
+  &lt;variable3&gt;NyttVärde3&lt;/variable3&gt;
+&lt;/record&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: Den uppdaterade posten i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 7. Ladda Ned Resurs -->
+			<div class="endpoint" id="ladda-ned-resurs">
+				<h2>7. Ladda Ned Resurs</h2>
+				<h3>Beskrivning</h3>
+				<p>Laddar ner en resursfil som är kopplad till en post.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/record/{type}/{id}/{resourceType}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska hämtas.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+							<li><code>resourceType</code> (sträng) – Typ av resurs att ladda ner.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> Binär ström (MIME-typ beror på resursen, t.ex. <code>application/octet-stream</code>)</li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Content-Disposition:</strong> Filen skickas som bilaga med filnamn</li>
+							<li><strong>Content-Length:</strong> Filens storlek</li>
+							<li><strong>Content-Type:</strong> MIME-typ (t.ex. <code>application/octet-stream</code>)</li>
+						</ul>
+					</li>
+					<li>Body: Den binära filströmmen.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 8. Ladda Upp Resurs -->
+			<div class="endpoint" id="ladda-upp-resurs">
+				<h2>8. Ladda Upp Resurs</h2>
+				<h3>Beskrivning</h3>
+				<p>Laddar upp en resurs (fil) och kopplar den till en post.</p>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}/{id}/{resourceType}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parametrar:</strong>
+						<ul>
+							<li><code>type</code> (sträng) – Den posttyp som ska användas.</li>
+							<li><code>id</code> (sträng) – Postens id.</li>
+							<li><code>resourceType</code> (sträng) – Typ av resurs att ladda upp.</li>
+						</ul></li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+					<li><strong>Request Body:</strong> <code>multipart/form-data</code> med ett fält med
+						namnet <code>file</code></li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>multipart/form-data</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: Den uppdaterade posten (inklusive den nya resursen) i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 9. Sök Post -->
+			<div class="endpoint" id="sok-post">
+				<h2>9. Sök Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Söker efter poster baserat på kriterier som skickas med i begäran.</p>
+				<h3>Endpoint</h3>
+				<pre>GET {baseUrl}/searchResult/{searchId}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parameter:</strong> <code>searchId</code> (sträng) – Ett id för
+						sökningen.</li>
+					<li><strong>Query-parameter:</strong> <code>searchData</code> (sträng) – En XML-sträng med
+						sökkriterier.</li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: En lista med poster som matchar sökkriterierna i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 10. Validera Post -->
+			<div class="endpoint" id="validate-record">
+				<h2>10. Validera Post</h2>
+				<h3>Beskrivning</h3>
+				<p>Validerar en post med hjälp av ett arbetsordningsformat. Arbetsordern innehåller två
+					delar:</p>
+				<ul>
+					<li><code>order</code> – Valideringsparametrar.</li>
+					<li><code>record</code> – De data för posten som ska valideras.</li>
+				</ul>
+				<h3>Endpoint</h3>
+				<pre>POST {baseUrl}/record/{type}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Path-parameter:</strong> <code>type</code> (sträng) – Den posttyp som ska
+						valideras (internt mappad till en valideringsordning).</li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query)</li>
+					<li><strong>Request Body:</strong> Ett XML-dokument med arbetsordern.</li>
+				</ul>
+				<h3>Stödda Mediatyper</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.workorder+xml</code>, <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Exempel på Request (XML)</h3>
+				<pre>&lt;workOrder&gt;
+  &lt;order&gt;
+    &lt;parameter name="validate"&gt;true&lt;/parameter&gt;
+  &lt;/order&gt;
+  &lt;record&gt;
+    &lt;recordinfo&gt;
+      &lt;id&gt;123&lt;/id&gt;
+      &lt;type&gt;{type}&lt;/type&gt;
+    &lt;/recordinfo&gt;
+    &lt;title&gt;Post att Validera&lt;/title&gt;
+    &lt;variable1&gt;Value1&lt;/variable1&gt;
+    &lt;variable2&gt;Value2&lt;/variable2&gt;
+    &lt;variable3&gt;Value3&lt;/variable3&gt;
+  &lt;/record&gt;
+&lt;/workOrder&gt;</pre>
+				<h3>Response</h3>
+				<ul>
+					<li>Status: <strong>200 OK</strong></li>
+					<li>Body: Resultatet av valideringen som en XML-post.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- 11. Batchindexera Poster -->
+			<div class="endpoint" id="batchindexering">
+				<h2>11. Batchindexera Poster</h2>
+				<h3>Beskrivning</h3>
+				<p>Startar ett batchindexeringsjobb för alla poster av en given typ. Valfria
+					indexinställningar kan anges; om inga tillhandahålls används ett standardtomt
+					inställningsobjekt.</p>
+				<h3>Slutpunkt</h3>
+				<pre>POST {baseUrl}/record/index/{type}</pre>
+				<h3>Parametrar</h3>
+				<ul>
+					<li><strong>Vägparameter:</strong> <code>type</code> (sträng) – Typen av poster som ska
+						indexeras.</li>
+					<li><strong>Autentisering:</strong> <code>authToken</code> (Header eller Query Parameter)</li>
+					<li><strong>Begäranskropp:</strong> Ett XML-dokument som innehåller indexinställningar. Om
+						den utelämnas används standardinställningen: <pre>&lt;indexSettings&gt;&lt;/indexSettings&gt;</pre>
+					</li>
+				</ul>
+				<h3>Stödda medietyper</h3>
+				<ul>
+					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
+				</ul>
+				<h3>Svar</h3>
+				<ul>
+					<li>Status: <strong>201 Skapad</strong></li>
+					<li>Headers:
+						<ul>
+							<li><strong>Location:</strong> URI för det skapade batchjobbet (t.ex. <code>{baseUrl}/record/indexBatchJob/{id}</code>)</li>
+						</ul>
+					</li>
+					<li>Kropp: Batchjobbsposten i XML-format.</li>
+				</ul>
+				<h3>Felhantering</h3>
+				<p>Möjliga fel inkluderar 400, 401, 403, 404, 409 eller 500 med felmeddelanden i ren text.</p>
+			</div>
+
+			<!-- Kom igång -->
+			<section id="kom-igang">
+				<h2>Kom igång</h2>
+				<p>Detta avsnitt ger en steg-för-steg arbetsgång för att snabbt komma igång med API:et.</p>
+				<h3>Använd Gästläge</h3>
+				<p>
+					Om du inte anger en
+					<code>authToken</code>
+					kör API:et i GÄST-läge. Till exempel:
+				</p>
+				<pre>GET {baseUrl}/record/person/</pre>
+				<p>Detta returnerar data som är tillgänglig för en gäst.</p>
+				<h3>Lista Alla Posttyper</h3>
+				<p>För att se vilka posttyper som finns tillgängliga, anropa slutpunkten för
+					posttypslistning:</p>
+				<pre>GET {baseUrl}/recordType</pre>
+				<p>Svaret kan inkludera typer som "person", "publication", "resource", etc.</p>
+				<h3>Sök efter en Posttyp</h3>
+				<p>Använd sökpostslutpunkten med lämpliga sökkriterier. Till exempel, för att söka efter
+					poster av typen "person":</p>
+				<pre>GET {baseUrl}/searchResult/search</pre>
+				<p>Med följande sökdata:</p>
+				<pre>&lt;search&gt;
+  &lt;criteria&gt;person&lt;/criteria&gt;
+&lt;/search&gt;</pre>
+				<p>Detta returnerar poster som matchar kriterierna.</p>
+				<h3>Läs en Post</h3>
+				<p>Efter att ha identifierat en post från sökresultaten, hämta dess kompletta detaljer med
+					slutpunkten för att läsa en enskild post. Till exempel:</p>
+				<pre>GET {baseUrl}/record/person/123</pre>
+				<p>Detta returnerar komplett data för posten med id 123 av typen "person".</p>
+			</section>
+
+			<section id="common-errors">
+				<h2>Vanliga Felresponser</h2>
+				<ul>
+					<li><strong>400 Felaktig begäran:</strong> Indata är felaktigt formaterad eller
+						omvandlingsfel har inträffat.</li>
+					<li><strong>401 Obehörig:</strong> Autentiseringstoken saknas eller är ogiltigt.</li>
+					<li><strong>403 Förbjudet:</strong> Den autentiserade användaren har inte nödvändiga
+						behörigheter.</li>
+					<li><strong>404 Hittades inte:</strong> Den begärda posten eller resursen existerar inte.</li>
+					<li><strong>409 Konflikt:</strong> Konflikter på grund av postens tillstånd eller
+						dubblettposter.</li>
+					<li><strong>500 Internt serverfel:</strong> Ett oväntat fel har inträffat.</li>
+				</ul>
+			</section>
+
+			<section id="notes">
+				<h2>Anteckningar</h2>
+				<ul>
+					<li><strong>Content Negotiation:</strong> API:et använder <code>Content-Type</code>-headern
+						för att bestämma begärans format och <code>Accept</code>-headern för svarformatet. Även om
+						både XML och JSON stöds, ges XML-exempel här.</li>
+					<li><strong>Felhantering:</strong> Fel mappas till lämpliga HTTP-statuskoder med
+						felmeddelanden i ren text.</li>
+					<li><strong>Filuppladdningar/Nedladdningar:</strong> API:et strömmar binärdata för
+						filoperationer och inkluderar headers för filmetadata.</li>
+					<li><strong>Variabilitet i returnerad data:</strong> Den returnerade datan kan variera
+						beroende på vilken användare som är aktiv. I många fall kan slutpunkter för att hämta data
+						(såsom att läsa poster) nås utan autentisering, även om autentisering kan förändra den data
+						som returneras.</li>
+				</ul>
+			</section>
+
+
+			<footer>
+				<p>&copy; 2025 Cora Record API Documentation</p>
+			</footer>
+		</div>
+	</div>
+</body>
+</html>

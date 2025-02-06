@@ -1,0 +1,151 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eef6fc; /* light blueish background */
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Language Buttons */
+#langButtons {
+  text-align: right;
+  margin-bottom: 20px;
+}
+#langButtons button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 0.9em;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+#langButtons button.english {
+  background-color: #1a73e8;
+  color: white;
+}
+#langButtons button.swedish {
+  background-color: #f9d342;
+  color: black;
+}
+
+/* Left Sidebar Navigation */
+#sidebar {
+  position: fixed;
+  top: 70px; /* adjust as needed */
+  left: 0;
+  width: 220px;
+  background-color: #fff;
+  border: 1px solid #a1c4fd;
+  border-radius: 5px;
+  padding: 15px;
+  height: 90%;
+  overflow-y: auto;
+}
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+#sidebar ul li {
+  margin-bottom: 10px;
+}
+#sidebar ul li a {
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+#sidebar ul li a:hover {
+  color: #2c7be5;
+}
+
+/* Main Content */
+#main-content {
+  margin-left: 250px; /* leave room for sidebar */
+  padding: 20px;
+}
+
+/* Background classes for language switching */
+.english-bg {
+  background-color: #eef6fc;
+}
+.swedish-bg {
+  background-color: #fff9e6;
+}
+
+/* Header styling */
+header {
+  margin-bottom: 30px;
+  background-color: #d0e7f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+header h1 {
+  color: #1a73e8;
+  margin-bottom: 10px;
+}
+header p {
+  font-size: 1.1em;
+}
+
+/* Section styling */
+section {
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 20px;
+  border-left: 5px solid #1a73e8;
+  border-radius: 5px;
+}
+
+/* Code and preformatted text styling */
+code {
+  background-color: #e0f0ff;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+pre {
+  background-color: #e8f4fd;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+/* Endpoint container styling */
+.endpoint {
+  border: 1px solid #a1c4fd;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(26, 115, 232, 0.2);
+}
+.endpoint h2 {
+  margin-bottom: 10px;
+  color: #1a73e8;
+}
+.endpoint h3 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  color: #2c7be5;
+}
+ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #666;
+}
