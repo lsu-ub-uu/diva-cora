@@ -1,5 +1,6 @@
 package se.uu.ub.cora.diva.spies.spider;
 
+import se.uu.ub.cora.bookkeeper.decorator.DataDecarator;
 import se.uu.ub.cora.bookkeeper.linkcollector.DataRecordLinkCollector;
 import se.uu.ub.cora.bookkeeper.recordpart.DataRedactor;
 import se.uu.ub.cora.bookkeeper.termcollector.DataGroupTermCollector;
@@ -146,6 +147,12 @@ public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 
 	@Override
 	public DataChangedSender getDataChangeSender() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataDecarator getDataDecorator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
