@@ -127,13 +127,13 @@
 			<section id="supported-media">
 				<h2>Supported Media Types (General)</h2>
 				<ul>
-					<li><strong>Records:</strong> XML: <code>application/vnd.uub.record+xml</code>; JSON: <code>application/vnd.uub.record+json</code>
+					<li><strong>Records:</strong> XML: <code>application/vnd.cora.record+xml</code>; JSON: <code>application/vnd.cora.record+json</code>
 					</li>
-					<li><strong>Record Lists:</strong> XML: <code>application/vnd.uub.recordList+xml</code>;
-						JSON: <code>application/vnd.uub.recordList+json</code>; Browser-friendly: <code>application/xml;
+					<li><strong>Record Lists:</strong> XML: <code>application/vnd.cora.recordList+xml</code>;
+						JSON: <code>application/vnd.cora.recordList+json</code>; Browser-friendly: <code>application/xml;
 							qs=0.1</code></li>
-					<li><strong>Work Orders (for Validation):</strong> XML: <code>application/vnd.uub.workorder+xml</code>;
-						JSON: <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>Work Orders (for Validation):</strong> XML: <code>application/vnd.cora.workorder+xml</code>;
+						JSON: <code>application/vnd.cora.workorder+json</code></li>
 					<li><strong>File Uploads:</strong> <code>multipart/form-data</code></li>
 					<li><strong>Error Responses:</strong> <code>text/plain; charset=utf-8</code></li>
 				</ul>
@@ -155,8 +155,8 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Request Example (XML)</h3>
@@ -176,7 +176,7 @@
 					<li>Headers:
 						<ul>
 							<li><strong>Location:</strong> URI of the newly created record (e.g. <code>{baseUrl}/record/{type}/{id}</code>)</li>
-							<li><strong>Content-Type:</strong> <code>application/vnd.uub.record+xml</code></li>
+							<li><strong>Content-Type:</strong> <code>application/vnd.cora.record+xml</code></li>
 						</ul>
 					</li>
 					<li>Body: The created record in XML format.</li>
@@ -204,7 +204,7 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -235,7 +235,7 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -267,7 +267,7 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -329,8 +329,8 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Example Request (XML)</h3>
@@ -414,7 +414,7 @@
 				<h3>Supported Media Types</h3>
 				<ul>
 					<li><strong>Consumes:</strong> <code>multipart/form-data</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -444,7 +444,7 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -477,8 +477,8 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.workorder+xml</code>, <code>application/vnd.uub.workorder+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.workorder+xml</code>, <code>application/vnd.cora.workorder+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Example Request (XML)</h3>
@@ -525,8 +525,8 @@
 				</ul>
 				<h3>Supported Media Types</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -654,13 +654,13 @@
 			<section id="stodda-medier">
 				<h2>Stödda Mediatyper (Generellt)</h2>
 				<ul>
-					<li><strong>Poster:</strong> XML: <code>application/vnd.uub.record+xml</code>; JSON: <code>application/vnd.uub.record+json</code>
+					<li><strong>Poster:</strong> XML: <code>application/vnd.cora.record+xml</code>; JSON: <code>application/vnd.cora.record+json</code>
 					</li>
-					<li><strong>Postlistor:</strong> XML: <code>application/vnd.uub.recordList+xml</code>;
-						JSON: <code>application/vnd.uub.recordList+json</code>; Webbläsarvänligt: <code>application/xml;
+					<li><strong>Postlistor:</strong> XML: <code>application/vnd.cora.recordList+xml</code>;
+						JSON: <code>application/vnd.cora.recordList+json</code>; Webbläsarvänligt: <code>application/xml;
 							qs=0.1</code></li>
-					<li><strong>Arbetsordrar (för validering):</strong> XML: <code>application/vnd.uub.workorder+xml</code>;
-						JSON: <code>application/vnd.uub.workorder+json</code></li>
+					<li><strong>Arbetsordrar (för validering):</strong> XML: <code>application/vnd.cora.workorder+xml</code>;
+						JSON: <code>application/vnd.cora.workorder+json</code></li>
 					<li><strong>Filuppladdning:</strong> <code>multipart/form-data</code></li>
 					<li><strong>Felmeddelanden:</strong> <code>text/plain; charset=utf-8</code></li>
 				</ul>
@@ -683,8 +683,8 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Exempel på Request (XML)</h3>
@@ -704,7 +704,7 @@
 					<li>Headers:
 						<ul>
 							<li><strong>Location:</strong> URI till den nyskapade posten (t.ex. <code>{baseUrl}/record/{type}/{id}</code>)</li>
-							<li><strong>Content-Type:</strong> <code>application/vnd.uub.record+xml</code></li>
+							<li><strong>Content-Type:</strong> <code>application/vnd.cora.record+xml</code></li>
 						</ul>
 					</li>
 					<li>Body: Den skapade posten i XML-format.</li>
@@ -732,7 +732,7 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -762,7 +762,7 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -793,7 +793,7 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -854,8 +854,8 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Exempel på Request (XML)</h3>
@@ -937,7 +937,7 @@
 				<h3>Stödda Mediatyper</h3>
 				<ul>
 					<li><strong>Consumes:</strong> <code>multipart/form-data</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -966,7 +966,7 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.recordList+xml</code>, <code>application/vnd.uub.recordList+json;
+					<li><strong>Produces:</strong> <code>application/vnd.cora.recordList+xml</code>, <code>application/vnd.cora.recordList+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Response</h3>
@@ -999,8 +999,8 @@
 				</ul>
 				<h3>Stödda Mediatyper</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.workorder+xml</code>, <code>application/vnd.uub.workorder+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.workorder+xml</code>, <code>application/vnd.cora.workorder+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Exempel på Request (XML)</h3>
@@ -1048,8 +1048,8 @@
 				</ul>
 				<h3>Stödda medietyper</h3>
 				<ul>
-					<li><strong>Consumes:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json</code></li>
-					<li><strong>Produces:</strong> <code>application/vnd.uub.record+xml</code>, <code>application/vnd.uub.record+json;
+					<li><strong>Consumes:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json</code></li>
+					<li><strong>Produces:</strong> <code>application/vnd.cora.record+xml</code>, <code>application/vnd.cora.record+json;
 							qs=0.9</code>, <code>application/xml; qs=0.1</code></li>
 				</ul>
 				<h3>Svar</h3>
