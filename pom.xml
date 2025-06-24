@@ -38,17 +38,17 @@
 		<coralog4j.version>2.16.0</coralog4j.version>
 		<json.version>3.10.0</json.version>
 		<initialize.version>1.7.0</initialize.version>
-		<spider.version>9.20.0</spider.version>
+		<spider.version>9.21.0</spider.version>
 		<therest.version>11.9.0</therest.version>
 		<beefeater.version>4.0.0</beefeater.version>
 		<bookkeeper.version>10.4.0</bookkeeper.version>
-		<basicdata.version>6.9.0</basicdata.version>
+		<basicdata.version>7.0.0</basicdata.version>
 		<storage.version>9.8.0</storage.version>
 		<metadatastorage.version>1.12.0</metadatastorage.version>
 		<searchstorage.version>3.22.0</searchstorage.version>
 		<basicstorage.version>7.17.0</basicstorage.version>
 		<sqldatabase.version>7.3.0</sqldatabase.version>
-		<sqlstorage.version>2.15.0</sqlstorage.version>
+		<sqlstorage.version>2.16.0</sqlstorage.version>
 		<gatekeeper.version>5.2.0</gatekeeper.version>
 		<gatekeeperclient.version>4.11.0</gatekeeperclient.version>
 		<solrsearch.version>6.0.0</solrsearch.version>
@@ -58,8 +58,8 @@
 		<fedoraarchive.version>1.15.0</fedoraarchive.version>
 		<fedora.version>4.2.0</fedora.version> 
 		<tikacontentanalyzer.version>1.1.0</tikacontentanalyzer.version>  
-		<xmlconverter.version>3.6.0</xmlconverter.version>
-		<coradata-spies.version>2.4.0</coradata-spies.version>
+		<xmlconverter.version>3.7.0</xmlconverter.version>
+		<coradata-spies.version>3.0.0</coradata-spies.version>
 		<testutils.version>1.14.0</testutils.version>
 		<search.version>6.0.0</search.version>
 		<rabbitmq.version>3.1.0</rabbitmq.version>
