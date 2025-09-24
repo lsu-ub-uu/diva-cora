@@ -39,7 +39,7 @@
 		<json.version>3.10.0</json.version>
 		<initialize.version>1.7.0</initialize.version>
 		<spider.version>9.23.0</spider.version>
-		<therest.version>11.10.0</therest.version>
+		<therest.version>11.11.0</therest.version>
 		<beefeater.version>4.0.0</beefeater.version>
 		<bookkeeper.version>10.4.0</bookkeeper.version>
 		<basicdata.version>7.0.0</basicdata.version>
