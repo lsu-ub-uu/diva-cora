@@ -86,12 +86,6 @@ public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 	}
 
 	@Override
-	public se.uu.ub.cora.storage.idgenerator.RecordIdGenerator getRecordIdGenerator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public RecordIndexer getRecordIndexer() {
 		// TODO Auto-generated method stub
 		return null;
