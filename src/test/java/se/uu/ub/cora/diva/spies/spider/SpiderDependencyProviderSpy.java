@@ -4,6 +4,7 @@ import se.uu.ub.cora.bookkeeper.decorator.DataDecarator;
 import se.uu.ub.cora.bookkeeper.linkcollector.DataRecordLinkCollector;
 import se.uu.ub.cora.bookkeeper.recordpart.DataRedactor;
 import se.uu.ub.cora.bookkeeper.termcollector.DataGroupTermCollector;
+import se.uu.ub.cora.bookkeeper.termcollector.PermissionTermDataHandler;
 import se.uu.ub.cora.bookkeeper.validator.DataValidator;
 import se.uu.ub.cora.data.DataRecordGroup;
 import se.uu.ub.cora.search.RecordIndexer;
@@ -154,6 +155,12 @@ public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 
 	@Override
 	public RecordDecorator getRecordDecorator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PermissionTermDataHandler getPermissionTermDataHandler() {
 		// TODO Auto-generated method stub
 		return null;
 	}
