@@ -41,7 +41,7 @@
 		<spider.version>10.5.0</spider.version>
 		<therest.version>12.0.0</therest.version>
 		<beefeater.version>4.0.0</beefeater.version>
-		<bookkeeper.version>11.2.0</bookkeeper.version>
+		<bookkeeper.version>11.3.0</bookkeeper.version>
 		<basicdata.version>7.1.0</basicdata.version>
 		<storage.version>10.0.0</storage.version>
 		<metadatastorage.version>1.14.0</metadatastorage.version>
