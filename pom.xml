@@ -47,7 +47,7 @@
 		<metadatastorage.version>1.15.0</metadatastorage.version>
 		<searchstorage.version>3.22.0</searchstorage.version>
 		<basicstorage.version>7.18.0</basicstorage.version>
-		<sqldatabase.version>7.6.0</sqldatabase.version>
+		<sqldatabase.version>7.7.0</sqldatabase.version>
 		<sqlstorage.version>2.16.0</sqlstorage.version>
 		<gatekeeper.version>5.2.0</gatekeeper.version>
 		<gatekeeperclient.version>4.11.0</gatekeeperclient.version>
