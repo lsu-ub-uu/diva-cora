@@ -52,7 +52,7 @@
 		<gatekeeper.version>5.2.0</gatekeeper.version>
 		<gatekeeperclient.version>4.11.0</gatekeeperclient.version>
 		<solrsearch.version>6.0.0</solrsearch.version>
-		<metacreator.version>5.16.0</metacreator.version>
+		<metacreator.version>5.17.0</metacreator.version>
 		<httphandler.version>2.17.0</httphandler.version>
 		<servlet-api.version>6.1.0</servlet-api.version>
 		<fedoraarchive.version>1.16.0</fedoraarchive.version>
