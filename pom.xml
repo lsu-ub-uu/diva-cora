@@ -41,7 +41,7 @@
 		<spider.version>10.8.0</spider.version>
 		<therest.version>13.3.0</therest.version>
 		<beefeater.version>4.0.0</beefeater.version>
-		<bookkeeper.version>11.7.0</bookkeeper.version>
+		<bookkeeper.version>11.8.0</bookkeeper.version>
 		<basicdata.version>7.1.0</basicdata.version>
 		<storage.version>10.0.0</storage.version>
 		<metadatastorage.version>1.15.0</metadatastorage.version>
@@ -52,7 +52,7 @@
 		<gatekeeper.version>5.2.0</gatekeeper.version>
 		<gatekeeperclient.version>4.11.0</gatekeeperclient.version>
 		<solrsearch.version>6.0.0</solrsearch.version>
-		<metacreator.version>5.17.0</metacreator.version>
+		<metacreator.version>5.18.0</metacreator.version>
 		<httphandler.version>2.17.0</httphandler.version>
 		<servlet-api.version>6.1.0</servlet-api.version>
 		<fedoraarchive.version>1.16.0</fedoraarchive.version>
