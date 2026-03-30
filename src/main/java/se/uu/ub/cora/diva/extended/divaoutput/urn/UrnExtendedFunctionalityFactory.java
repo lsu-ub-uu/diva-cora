@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Uppsala University Library
+ * Copyright 2025, 2026 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -31,13 +31,11 @@ import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityPosition;
 
 public class UrnExtendedFunctionalityFactory implements ExtendedFunctionalityFactory {
 
-	private static final String DIVA_OUTPUT = "diva-output";
 	private List<ExtendedFunctionalityContext> contexts = new ArrayList<>();
 
 	@Override
-	public List<ExtendedFunctionality> factor(ExtendedFunctionalityPosition position,
-			String recordType) {
-		return Collections.singletonList(new UrnExtendedFunctionality());
+	public List<ExtendedFunctionalityContext> getExtendedFunctionalityContexts() {
+		return contexts;
 	}
 
 	@Override
@@ -46,15 +44,16 @@ public class UrnExtendedFunctionalityFactory implements ExtendedFunctionalityFac
 	}
 
 	private void createListOfContexts() {
-		createContext(ExtendedFunctionalityPosition.CREATE_BEFORE_STORE);
+		createContext(ExtendedFunctionalityPosition.CREATE_BEFORE_COLLECT_DATA);
 	}
 
 	private void createContext(ExtendedFunctionalityPosition position) {
-		contexts.add(new ExtendedFunctionalityContext(position, DIVA_OUTPUT, 0));
+		contexts.add(new ExtendedFunctionalityContext(position, "diva-output", 0));
 	}
 
 	@Override
-	public List<ExtendedFunctionalityContext> getExtendedFunctionalityContexts() {
-		return contexts;
+	public List<ExtendedFunctionality> factor(ExtendedFunctionalityPosition position,
+			String recordType) {
+		return Collections.singletonList(new UrnExtendedFunctionality());
 	}
 }

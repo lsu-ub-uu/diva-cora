@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Uppsala University Library
+ * Copyright 2025, 2026 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -21,13 +21,14 @@ package se.uu.ub.cora.diva.extended.divaoutput.urn;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityPosition.CREATE_BEFORE_STORE;
 
 import java.util.List;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import se.uu.ub.cora.diva.extended.divaoutput.urn.UrnExtendedFunctionality;
+import se.uu.ub.cora.diva.extended.divaoutput.urn.UrnExtendedFunctionalityFactory;
 import se.uu.ub.cora.diva.spies.spider.SpiderDependencyProviderSpy;
 import se.uu.ub.cora.spider.dependency.SpiderDependencyProvider;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
@@ -41,26 +42,26 @@ public class UrnExtendedFunctionalityFactoryTest {
 	private SpiderDependencyProvider dependencyProvider;
 
 	@BeforeMethod
-	public void beforeMethod() throws Exception {
+	public void beforeMethod() {
 		factory = new UrnExtendedFunctionalityFactory();
 		dependencyProvider = new SpiderDependencyProviderSpy();
 		factory.initializeUsingDependencyProvider(dependencyProvider);
 	}
 
 	@Test
-	public void testInit() throws Exception {
+	public void testInit() {
 		assertTrue(factory instanceof UrnExtendedFunctionalityFactory);
 	}
 
 	@Test
 	public void testGetExtendedFunctionalityContextsForCreate() {
-		assertContext(CREATE_BEFORE_STORE);
+		assertContext(ExtendedFunctionalityPosition.CREATE_BEFORE_COLLECT_DATA);
 	}
 
 	@Test
-	public void testFactorCreate() throws Exception {
-		List<ExtendedFunctionality> functionalities = factory.factor(CREATE_BEFORE_STORE,
-				"diva-output");
+	public void testFactorCreate() {
+		List<ExtendedFunctionality> functionalities = factory
+				.factor(ExtendedFunctionalityPosition.CREATE_BEFORE_COLLECT_DATA, "diva-output");
 		assertTrue(functionalities.get(0) instanceof UrnExtendedFunctionality);
 	}
 
