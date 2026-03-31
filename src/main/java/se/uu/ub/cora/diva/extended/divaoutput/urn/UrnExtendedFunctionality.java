@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Uppsala University Library
+ * Copyright 2025, 2026 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -28,28 +28,25 @@ import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
 
 public class UrnExtendedFunctionality implements ExtendedFunctionality {
 
-	private static final String URN = "urn:nbn";
-	private static final String RECORD_INFO = "recordInfo";
-	private static final String RECORD_CONTENT_SOURCE = "recordContentSource";
-	private static final String URN_FORMAT = "urn:nbn:se:%s:diva-%s";
+	private DataRecordGroup recordGroup;
+	private DataGroup recordInfoGroup;
 
 	@Override
 	public void useExtendedFunctionality(ExtendedFunctionalityData data) {
-		DataRecordGroup recordGroup = data.dataRecordGroup;
-		createAndAddUrn(recordGroup);
+		recordGroup = data.dataRecordGroup;
+		recordInfoGroup = recordGroup.getFirstGroupWithNameInData("recordInfo");
+		if (!recordInfoGroup.containsChildWithNameInData("urn")) {
+			createAndAddUrnnbnChild();
+		}
 	}
 
-	private void createAndAddUrn(DataRecordGroup recordGroup) {
-		DataGroup recordInfoGroup = recordGroup.getFirstGroupWithNameInData(RECORD_INFO);
-		DataAtomic urnNumber = createUrnNumber(recordGroup, recordInfoGroup);
+	private void createAndAddUrnnbnChild() {
+		DataAtomic urnNumber = createUrnnbnChild();
 		recordInfoGroup.addChild(urnNumber);
 	}
 
-	private DataAtomic createUrnNumber(DataRecordGroup recordGroup, DataGroup recordInfo) {
-		String recordId = recordGroup.getId();
-		String domain = recordInfo.getFirstAtomicValueWithNameInData(RECORD_CONTENT_SOURCE);
-
-		return DataProvider.createAtomicUsingNameInDataAndValue(URN,
-				String.format(URN_FORMAT, domain, recordId));
+	private DataAtomic createUrnnbnChild() {
+		String urnnbn = String.format("urn:nbn:se:diva-%s", recordGroup.getId());
+		return DataProvider.createAtomicUsingNameInDataAndValue("urn", urnnbn);
 	}
 }

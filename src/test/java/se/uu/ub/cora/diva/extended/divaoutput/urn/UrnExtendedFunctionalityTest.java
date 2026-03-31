@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Uppsala University Library
+ * Copyright 2025, 2026 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -28,13 +28,13 @@ import se.uu.ub.cora.data.DataProvider;
 import se.uu.ub.cora.data.spies.DataFactorySpy;
 import se.uu.ub.cora.data.spies.DataGroupSpy;
 import se.uu.ub.cora.data.spies.DataRecordGroupSpy;
+import se.uu.ub.cora.diva.extended.divaoutput.urn.UrnExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionality;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityData;
 
 public class UrnExtendedFunctionalityTest {
 
 	private static final String RECORD_INFO = "recordInfo";
-	private static final String RECORD_CONTENT_SOURCE = "recordContentSource";
 	private DataRecordGroupSpy someRecord;
 	private DataGroupSpy recordInfoGroup;
 	private ExtendedFunctionalityData extendedFunctionalityData;
@@ -48,6 +48,7 @@ public class UrnExtendedFunctionalityTest {
 
 		someRecord.MRV.setDefaultReturnValuesSupplier("getFirstGroupWithNameInData",
 				() -> recordInfoGroup);
+		someRecord.MRV.setDefaultReturnValuesSupplier("getId", () -> "someId");
 
 		extendedFunctionalityData = new ExtendedFunctionalityData();
 		extendedFunctionalityData.dataRecordGroup = someRecord;
@@ -56,22 +57,37 @@ public class UrnExtendedFunctionalityTest {
 		DataProvider.onlyForTestSetDataFactory(dataFactory);
 
 		urnExtFunc = new UrnExtendedFunctionality();
+
 	}
 
 	@Test
-	public void testInit() throws Exception {
+	public void testInit() {
 		assertTrue(urnExtFunc instanceof ExtendedFunctionality);
 	}
 
 	@Test
-	public void testDivaUrnNumberIsAdded() throws Exception {
+	public void testUrnNumberIsAdded() {
 		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
 
 		someRecord.MCR.assertParameters("getFirstGroupWithNameInData", 0, RECORD_INFO);
 		someRecord.MCR.assertMethodWasCalled("getId");
-		recordInfoGroup.MCR.assertParameters("getFirstAtomicValueWithNameInData", 0,
-				RECORD_CONTENT_SOURCE);
 
-		recordInfoGroup.MCR.assertMethodWasCalled("addChild");
+		String urnnbnFormat = "urn:nbn:se:diva-%s";
+		String urnnbn = String.format(urnnbnFormat, "someId");
+
+		var urnAtomic = dataFactory.MCR
+				.assertCalledParametersReturn("factorAtomicUsingNameInDataAndValue", "urn", urnnbn);
+		recordInfoGroup.MCR.assertCalledParameters("addChild", urnAtomic);
 	}
+
+	@Test
+	public void testUrnNbnAlreadyExists() {
+		recordInfoGroup.MRV.setSpecificReturnValuesSupplier("containsChildWithNameInData",
+				() -> true, "urn");
+
+		urnExtFunc.useExtendedFunctionality(extendedFunctionalityData);
+
+		dataFactory.MCR.assertMethodNotCalled("factorAtomicUsingNameInDataAndValue");
+	}
+
 }
