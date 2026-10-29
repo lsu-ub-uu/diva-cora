@@ -39,6 +39,7 @@
 		<json.version>3.11.0</json.version>
 		<initialize.version>1.8.0</initialize.version>
 		<spider.version>10.12.0</spider.version>
+		<recordLock.version>1.0-SNAPSHOT</recordLock.version>
 		<therest.version>13.8.0</therest.version>
 		<beefeater.version>4.0.0</beefeater.version>
 		<bookkeeper.version>11.9.0</bookkeeper.version>
@@ -117,6 +118,12 @@
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>spider</artifactId>
 			<version>${spider.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>recordlock</artifactId>
+			<version>${recordLock.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
