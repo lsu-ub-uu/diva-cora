@@ -18,6 +18,7 @@ import se.uu.ub.cora.spider.dependency.SpiderDependencyProvider;
 import se.uu.ub.cora.spider.extendedfunctionality.ExtendedFunctionalityProvider;
 import se.uu.ub.cora.spider.record.DataGroupToRecordEnhancer;
 import se.uu.ub.cora.spider.record.RecordDecorator;
+import se.uu.ub.cora.spider.resourceconvert.ResourceConvert;
 import se.uu.ub.cora.spider.unique.UniqueValidator;
 import se.uu.ub.cora.storage.RecordStorage;
 import se.uu.ub.cora.storage.StreamStorage;
@@ -161,6 +162,12 @@ public class SpiderDependencyProviderSpy implements SpiderDependencyProvider {
 
 	@Override
 	public PermissionTermDataHandler getPermissionTermDataHandler() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResourceConvert getResourceConvert() {
 		// TODO Auto-generated method stub
 		return null;
 	}
